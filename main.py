@@ -44,7 +44,7 @@ async def echo_mess(message: types.Message):
                 print(f"/{t_o}/{command} удален")
                 await bot.send_message(message.chat.id, f"Папка /{t_o}/{command} удалена")
             except OSError as error:
-                print("Возникла ошибка.")
+                print("Возникла ошибка1.")
                 await bot.send_message(message.chat.id, f"Папка /{t_o}/{command} не найдена!!!")
         else:
             await bot.send_message(message.chat.id, f"Дата не указана или указана не верно")
@@ -151,36 +151,36 @@ async def echo_mess(message: types.Message):
                 else:
                     await bot.send_message(message.chat.id, f"Папка /{t_o}/{date_now_year} не найдена!!!")
 
-        elif message.text[0].lower() == "у" or message.text[0].lower() == "y":  # Английская y
-            # Для получения удаления только авторизованный админ
-            if user_id in config.users:
-                search_date = message.text.split(" ")
-                if len(search_date) > 1:
-                    await bot.send_message(message.chat.id, f"Хотим удалить папку /{t_o}/{search_date[1]}")
-                    try:
-                        shutil.rmtree(f"files/{t_o}/{search_date[1]}")
-                        print(f"/{t_o}/{search_date[1]} удален")
-                        await bot.send_message(message.chat.id, f"Папка /{t_o}/{search_date[1]} удалена")
-                    except OSError as error:
-                        print("Возникла ошибка.")
-                        await bot.send_message(message.chat.id, f"Папка /{t_o}/{search_date[1]} не найдена!!!")
-                else:
-                    await bot.send_message(message.chat.id, f"Дата не указана или указана не верно")
-        elif message.text[0].lower() == "ф":  # or message.text[0].lower() == "y":  # Английская y
-            # Для получения удаления только авторизованный админ
-            if user_id in config.users:
-                search_master = message.text.split(" ")
-                if len(search_master) > 1:
-                    await bot.send_message(message.chat.id, f"Хотим удалить файл /{t_o}/{date_now_year}/{search_master[1]}")
-                    try:
-                        os.remove(f"files/{t_o}/{date_now_year}/{search_master[1]}.json")
-                        print(f"/{t_o}/{date_now_year}/{search_master[1]} удален")
-                        await bot.send_message(message.chat.id, f"Файл /{t_o}/{date_now_year}/{search_master[1]} удален")
-                    except OSError as error:
-                        print("Возникла ошибка.")
-                        await bot.send_message(message.chat.id, f"Файл /{t_o}/{date_now_year}/{search_master[1]} не найден!!!")
-                else:
-                    await bot.send_message(message.chat.id, f"Файл не указан или указан не верно")
+        # elif message.text[0].lower() == "у" or message.text[0].lower() == "y":  # Английская y
+        #     # Для получения удаления только авторизованный админ
+        #     if user_id in config.users:
+        #         search_date = message.text.split(" ")
+        #         if len(search_date) > 1:
+        #             await bot.send_message(message.chat.id, f"Хотим удалить папку /{t_o}/{search_date[1]}")
+        #             try:
+        #                 shutil.rmtree(f"files/{t_o}/{search_date[1]}")
+        #                 print(f"/{t_o}/{search_date[1]} удален")
+        #                 await bot.send_message(message.chat.id, f"Папка /{t_o}/{search_date[1]} удалена")
+        #             except OSError as error:
+        #                 print("Возникла ошибка2.")
+        #                 await bot.send_message(message.chat.id, f"Папка /{t_o}/{search_date[1]} не найдена!!!")
+        #         else:
+        #             await bot.send_message(message.chat.id, f"Дата не указана или указана не верно")
+        # elif message.text[0].lower() == "ф":  # or message.text[0].lower() == "y":  # Английская y
+        #     # Для получения удаления только авторизованный админ
+        #     if user_id in config.users:
+        #         search_master = message.text.split(" ")
+        #         if len(search_master) > 1:
+        #             await bot.send_message(message.chat.id, f"Хотим удалить файл /{t_o}/{date_now_year}/{search_master[1]}")
+        #             try:
+        #                 os.remove(f"files/{t_o}/{date_now_year}/{search_master[1]}.json")
+        #                 print(f"/{t_o}/{date_now_year}/{search_master[1]} удален")
+        #                 await bot.send_message(message.chat.id, f"Файл /{t_o}/{date_now_year}/{search_master[1]} удален")
+        #             except OSError as error:
+        #                 print("Возникла ошибка3.")
+        #                 await bot.send_message(message.chat.id, f"Файл /{t_o}/{date_now_year}/{search_master[1]} не найден!!!")
+        #         else:
+        #             await bot.send_message(message.chat.id, f"Файл не указан или указан не верно")
         # Парсер сообщений и сохранение в файл
         else:
             try:
