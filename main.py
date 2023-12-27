@@ -243,6 +243,7 @@ async def echo_mess(message: types.Message):
                               replace("\n", " ").
                               replace(",", " ").
                               replace(":", "").
+                              replace(";", "").
                               replace("\xa0", " ").
                               replace(".", " "))
                 new_txt_at_list = new_txt_at.split(" ")
@@ -276,6 +277,7 @@ async def echo_mess(message: types.Message):
                               replace("\n", " ").
                               replace(",", " ").
                               replace(":", "").
+                              replace(";", "").
                               replace("\xa0", " ").
                               replace(".", " "))
                 new_txt_ti_list = new_txt_ti.split(" ")
@@ -309,6 +311,7 @@ async def echo_mess(message: types.Message):
                               replace("\n", " ").
                               replace(",", " ").
                               replace(":", "").
+                              replace(";", "").
                               replace("\xa0", " ").
                               replace(".", " "))
                 new_txt_et_list = new_txt_et.split(" ")
