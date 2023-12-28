@@ -481,7 +481,9 @@ async def echo_mess(message: types.Message):
                     to_save["master"] = txt_soname[0].title()
 
                 if to_save["master"] == "не указан":
-                    await bot.send_message(message.chat.id, "Необходимо указать фамилию мастера, отчет не сохранен.")
+                    # await bot.send_message(message.chat.id, "Необходимо указать фамилию мастера, отчет не сохранен.")
+                    await message.reply("Необходимо указать фамилию мастера, отчет не сохранен.")
+
                     return
 
                 # Сообщение об ошибке на основе флагов
@@ -525,9 +527,11 @@ async def echo_mess(message: types.Message):
                     for e in msg_err:
                         msg_err_txt += e
                     # Стандартный текст передается тут, а не сохраняется
-                    await bot.send_message(message.chat.id,
-                                           f"Внимание, возможна ошибка с отчетом мастера "
-                                           f"{to_save['master']}: {msg_err_txt} Отчет не сохранен.")
+                    # await bot.send_message(message.chat.id,
+                    #                        f"Внимание, возможна ошибка с отчетом мастера "
+                    #                        f"{to_save['master']}: {msg_err_txt} Отчет не сохранен.")
+                    await message.reply(f"Внимание, возможна ошибка с отчетом мастера "
+                                        f"{to_save['master']}: {msg_err_txt} Отчет не сохранен.")
                     return
                     # Неактуально если отчет не сохраняется?
                     # Сохраним имя мастера и ошибки в файл, для доп вывода при запросе общего за 1 день
