@@ -77,6 +77,13 @@ async def echo_mess(message: types.Message):
         elif user_id == 652928171:
             t_o = "ТО Север"
         # command = message.get_full_command()[1]  # [1].split('.')
+
+        # Используем функцию подсчета файлов для вывода посчитанных мастеров
+        # TODO лучше создать отдельную функцию
+        if os.path.exists(f"files/{t_o}/{date_now_year}"):
+            files = os.listdir(f"files/{t_o}/{date_now_year}")
+            rep_a, num_rep = report(files, date_now_year, t_o)
+
         search_master = message.text.split(" ")
         print(search_master)
         if len(search_master) > 1:
@@ -86,22 +93,27 @@ async def echo_mess(message: types.Message):
                 print(f"/{t_o}/{date_now_year}/{search_master[1]} удален")
                 await bot.send_message(message.chat.id, f"Файл /{t_o}/{date_now_year}/{search_master[1]} удален")
 
-                # Используем функцию подсчета файлов для вывода посчитанных мастеров
-                # TODO возможно лучше создать отдельную функцию
-                if os.path.exists(f"files/{t_o}/{date_now_year}"):
-                    files = os.listdir(f"files/{t_o}/{date_now_year}")
-                    rep_a, num_rep = report(files, date_now_year, t_o)
-
-                    # Выведем имена мастеров для сверки
-                    rep_masters = "Остались отчеты: \n"
-                    for i in range(1, len(num_rep)):
-                        rep_masters += f'{num_rep[i]} \n'
-                    await bot.send_message(message.chat.id, rep_masters)
+                # Выведем имена мастеров для сверки
+                rep_masters = "Остались отчеты: \n"
+                for i in range(1, len(num_rep)):
+                    rep_masters += f'{num_rep[i]} \n'
+                await bot.send_message(message.chat.id, rep_masters)
             except OSError as error:
                 print("Возникла ошибка3.")
                 await bot.send_message(message.chat.id, f"Файл /{t_o}/{date_now_year}/{search_master[1]} не найден!!!")
+
+                # Выведем имена мастеров для сверки
+                rep_masters = "Отчеты в папке: \n"
+                for i in range(1, len(num_rep)):
+                    rep_masters += f'{num_rep[i]} \n'
+                await bot.send_message(message.chat.id, rep_masters)
         else:
             await bot.send_message(message.chat.id, f"Файл не указан или указан не верно")
+            # Выведем имена мастеров для сверки
+            rep_masters = "Отчеты в папке: \n"
+            for i in range(1, len(num_rep)):
+                rep_masters += f'{num_rep[i]} \n'
+            await bot.send_message(message.chat.id, rep_masters)
     else:
         await bot.send_message(message.chat.id, "Неа")
 
