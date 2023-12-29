@@ -22,7 +22,7 @@ if not os.path.exists(f"files/ТО Север"):
     os.makedirs(f"files/ТО Север")
 
 
-# Тестовая функция для проверки даты
+# Удаление папки
 @dp.message_handler(commands=['del'])
 async def echo_mess(message: types.Message):
     # Получим ид пользователя и сравним со списком разрешенных в файле конфига
@@ -55,6 +55,71 @@ async def echo_mess(message: types.Message):
     #     await bot.send_message(message.chat.id, f"Дата введена некорректно")
     #
     # await bot.send_message(message.chat.id, f"test")
+
+
+# Удаление папки
+@dp.message_handler(commands=['del_file'])
+async def echo_mess(message: types.Message):
+    # Получим ид пользователя и сравним со списком разрешенных в файле конфига
+    user_id = message.from_user.id
+    print(f"user_id {user_id}")
+    t_o = ""
+    date_now = datetime.now()
+    print(f"Текущая дата: {date_now}")
+    date_ago = date_now - timedelta(hours=15)  # - hours  # здесь мы выставляем минус 15 часов
+    print(f"Новая дата: {date_ago}")
+    print(date_ago)
+    date_now_year = date_ago.strftime("%d.%m.%Y")
+    if user_id in config.users:
+        # Определим ТО по ид юзера в телеграм
+        if user_id == 976374565 or user_id == 1240018773:
+            t_o = "ТО Запад"
+        elif user_id == 652928171:
+            t_o = "ТО Север"
+        # command = message.get_full_command()[1]  # [1].split('.')
+        search_master = message.text.split(" ")
+        print(search_master)
+        if len(search_master) > 1:
+            await bot.send_message(message.chat.id, f"Хотим удалить файл /{t_o}/{date_now_year}/{search_master[1]}")
+            try:
+                os.remove(f"files/{t_o}/{date_now_year}/{search_master[1]}.json")
+                print(f"/{t_o}/{date_now_year}/{search_master[1]} удален")
+                await bot.send_message(message.chat.id, f"Файл /{t_o}/{date_now_year}/{search_master[1]} удален")
+
+                # Используем функцию подсчета файлов для вывода посчитанных мастеров
+                # TODO возможно лучше создать отдельную функцию
+                if os.path.exists(f"files/{t_o}/{date_now_year}"):
+                    files = os.listdir(f"files/{t_o}/{date_now_year}")
+                    rep_a, num_rep = report(files, date_now_year, t_o)
+
+                    # Выведем имена мастеров для сверки
+                    rep_masters = "Остались отчеты: \n"
+                    for i in range(1, len(num_rep)):
+                        rep_masters += f'{num_rep[i]} \n'
+                    await bot.send_message(message.chat.id, rep_masters)
+            except OSError as error:
+                print("Возникла ошибка3.")
+                await bot.send_message(message.chat.id, f"Файл /{t_o}/{date_now_year}/{search_master[1]} не найден!!!")
+        else:
+            await bot.send_message(message.chat.id, f"Файл не указан или указан не верно")
+    else:
+        await bot.send_message(message.chat.id, "Неа")
+
+        # elif message.text[0].lower() == "ф":  # or message.text[0].lower() == "y":  # Английская y
+        #     # Для получения удаления только авторизованный админ
+        #     if user_id in config.users:
+        #         search_master = message.text.split(" ")
+        #         if len(search_master) > 1:
+        #             await bot.send_message(message.chat.id, f"Хотим удалить файл /{t_o}/{date_now_year}/{search_master[1]}")
+        #             try:
+        #                 os.remove(f"files/{t_o}/{date_now_year}/{search_master[1]}.json")
+        #                 print(f"/{t_o}/{date_now_year}/{search_master[1]} удален")
+        #                 await bot.send_message(message.chat.id, f"Файл /{t_o}/{date_now_year}/{search_master[1]} удален")
+        #             except OSError as error:
+        #                 print("Возникла ошибка3.")
+        #                 await bot.send_message(message.chat.id, f"Файл /{t_o}/{date_now_year}/{search_master[1]} не найден!!!")
+        #         else:
+        #             await bot.send_message(message.chat.id, f"Файл не указан или указан не верно")
 
 
 @dp.message_handler()
