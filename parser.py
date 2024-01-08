@@ -75,9 +75,12 @@ def get_address(list_service_masters):
     return list_repairs
 
 
-def parser_address(address):
+def parser_address(start_address):
     print("Запускаем парсер адреса")
-    address = address.split(",")
+    full_address = start_address  # Полный адрес для сверки
+    print(f"full_address {full_address}")
+    address = start_address.split(",")
+    print(f"address {address}")
     district = address[2][1:-4].strip()
     # Исключения
     if district == "Кол":
@@ -134,17 +137,40 @@ def parser_address(address):
     street = street.strip()
     street = cut_street(street)
 
-    address_dom = address[-1].split()
-    address_dom = address_dom[0]
+    # Ищем номер дома, при двойном адресе берем номер дома перед "вторым" адресом
+    russia = start_address.replace(",", " ")
+    russia = russia.split(" ")
+    print(f"russia {russia}")
+    russia_count = russia.count("Россия")
+    print(f"russia_count {russia_count}")
 
-    # Отдельно надо разделить номер дома и квартиру
+    address_dom = ""
+
+    if russia_count > 1:
+        count_r = 0
+        for num, el in enumerate(russia):
+            print(f"el: {el}")
+            if el == "Россия" and count_r == 1:
+                print(f"Найдено второе совпадение, номер элемента: {num}")
+                address_dom = russia[num - 2]
+                break
+            elif el == "Россия":
+                count_r += 1
+    else:
+        address_dom = address[-1].split()
+        print(f"address_dom {address_dom}")
+        address_dom = address_dom[0]
+        print(f"address_dom {address_dom}")
+
+    # Отдельно надо разделить номер дома и корпус
     if address_dom[-1].isdigit():
         address_dom = address_dom.replace("/", "к")
     else:
         address_dom = address_dom.replace("/", "")
+
     address_kv = address[-1].split()
 
-    return [street, address_dom, address_kv[-1]]
+    return [street, address_dom, address_kv[-1], full_address]
 
 
 def cut_street(street):

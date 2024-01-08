@@ -70,6 +70,8 @@ async def echo_mess(message: types.Message):
     print(f"Новая дата: {date_ago}")
     print(date_ago)
     date_now_year = date_ago.strftime("%d.%m.%Y")
+    date_now_no_year = date_ago.strftime("%d.%m")
+    month_year = date_ago.strftime("%m.%Y")
     if user_id in config.users:
         # Определим ТО по ид юзера в телеграм
         if user_id == 976374565 or user_id == 1240018773:
@@ -80,18 +82,20 @@ async def echo_mess(message: types.Message):
 
         # Используем функцию подсчета файлов для вывода посчитанных мастеров
         # TODO лучше создать отдельную функцию
-        if os.path.exists(f"files/{t_o}/{date_now_year}"):
-            files = os.listdir(f"files/{t_o}/{date_now_year}")
-            rep_a, num_rep = report(files, date_now_year, t_o)
+        if os.path.exists(f"files/{t_o}/{month_year}/{date_now_year}"):
+            files = os.listdir(f"files/{t_o}/{month_year}/{date_now_year}")
+            rep_a, num_rep = report(files, date_now_year, t_o, month_year)
 
         search_master = message.text.split(" ")
         print(search_master)
         if len(search_master) > 1:
-            await bot.send_message(message.chat.id, f"Хотим удалить файл /{t_o}/{date_now_year}/{search_master[1]}")
+            await bot.send_message(message.chat.id,
+                                   f"Хотим удалить файл /{t_o}/{month_year}/{date_now_year}/{search_master[1]}")
             try:
-                os.remove(f"files/{t_o}/{date_now_year}/{search_master[1]}.json")
-                print(f"/{t_o}/{date_now_year}/{search_master[1]} удален")
-                await bot.send_message(message.chat.id, f"Файл /{t_o}/{date_now_year}/{search_master[1]} удален")
+                os.remove(f"files/{t_o}/{month_year}/{date_now_year}/{search_master[1]}.json")
+                print(f"/{t_o}/{month_year}/{date_now_year}/{search_master[1]} удален")
+                await bot.send_message(message.chat.id,
+                                       f"Файл /{t_o}/{month_year}/{date_now_year}/{search_master[1]} удален")
 
                 # Выведем имена мастеров для сверки
                 rep_masters = "Остались отчеты: \n"
@@ -100,7 +104,7 @@ async def echo_mess(message: types.Message):
                 await bot.send_message(message.chat.id, rep_masters)
             except OSError as error:
                 print("Возникла ошибка3.")
-                await bot.send_message(message.chat.id, f"Файл /{t_o}/{date_now_year}/{search_master[1]} не найден!!!")
+                await bot.send_message(message.chat.id, f"Файл /{t_o}/{month_year}/{date_now_year}/{search_master[1]} не найден!!!")
 
                 # Выведем имена мастеров для сверки
                 rep_masters = "Отчеты в папке: \n"
@@ -116,22 +120,6 @@ async def echo_mess(message: types.Message):
             await bot.send_message(message.chat.id, rep_masters)
     else:
         await bot.send_message(message.chat.id, "Неа")
-
-        # elif message.text[0].lower() == "ф":  # or message.text[0].lower() == "y":  # Английская y
-        #     # Для получения удаления только авторизованный админ
-        #     if user_id in config.users:
-        #         search_master = message.text.split(" ")
-        #         if len(search_master) > 1:
-        #             await bot.send_message(message.chat.id, f"Хотим удалить файл /{t_o}/{date_now_year}/{search_master[1]}")
-        #             try:
-        #                 os.remove(f"files/{t_o}/{date_now_year}/{search_master[1]}.json")
-        #                 print(f"/{t_o}/{date_now_year}/{search_master[1]} удален")
-        #                 await bot.send_message(message.chat.id, f"Файл /{t_o}/{date_now_year}/{search_master[1]} удален")
-        #             except OSError as error:
-        #                 print("Возникла ошибка3.")
-        #                 await bot.send_message(message.chat.id, f"Файл /{t_o}/{date_now_year}/{search_master[1]} не найден!!!")
-        #         else:
-        #             await bot.send_message(message.chat.id, f"Файл не указан или указан не верно")
 
 
 @dp.message_handler()
@@ -163,70 +151,82 @@ async def echo_mess(message: types.Message):
         print(date_ago)
         date_now_year = date_ago.strftime("%d.%m.%Y")
         date_now_no_year = date_ago.strftime("%d.%m")
+        month_year = date_ago.strftime("%m.%Y")
         # Функция отправки отчета в телеграм по уже собранным данным
-        if message.text == "1" or message.text == "отчет" or message.text == "отчёт":
+        if message.text == "1" or message.text == "отчет" or message.text == "отчёт" or message.text == "месяц":
             # Для получения отчета только авторизованный админ
             if user_id in config.users:
-                await bot.send_message(message.chat.id, f"Готовим отчет")
-                if os.path.exists(f"files/{t_o}/{date_now_year}"):
-                    files = os.listdir(f"files/{t_o}/{date_now_year}")
-                    await bot.send_message(message.chat.id, f"Найдено {len(files)} файл(ов)")
-                    rep_a, num_rep = report(files, date_now_year, t_o)
-                    await bot.send_message(message.chat.id, f"Посчитано {num_rep[0]} файл(ов)")
-
-                    # Выведем имена мастеров для сверки
-                    rep_masters = ""
-                    for i in range(1, len(num_rep)):
-                        rep_masters += f'{num_rep[i]} \n'
-                    await bot.send_message(message.chat.id, rep_masters)
-
-                    print(files)
-                    at_int = rep_a["at_int"]
-                    at_int_pri = rep_a["at_int_pri"]
-                    at_serv = rep_a["at_serv"]
-
-                    ti_int = rep_a["ti_int"]
-                    ti_int_pri = rep_a["ti_int_pri"]
-                    ti_serv = rep_a["ti_serv"]
-
-                    et_int = rep_a["et_int"]
-                    et_int_pri = rep_a["et_int_pri"]
-                    et_tv = rep_a["et_tv"]
-                    et_tv_pri = rep_a["et_tv_pri"]
-                    et_dom = rep_a["et_dom"]
-                    et_dom_pri = rep_a["et_dom_pri"]
-                    et_serv = rep_a["et_serv"]
-                    et_serv_tv = rep_a["et_serv_tv"]
-
-                    answer = (f"{t_o} {date_now_no_year} \n\n"
-                              f"ЭХ: интернет {at_int}({at_int_pri} прив), сервис {at_serv} \n"
-                              f"Тиера: интернет {ti_int}({ti_int_pri} прив), сервис {ti_serv} \n"
-                              f"ЕТ: интернет {et_int}({et_int_pri} прив), "
-                              f"ТВ {et_tv}({et_tv_pri} прив), \n"
-                              f"домофон {et_dom}({et_dom_pri} прив), "
-                              f"сервис интернет {et_serv}, "
-                              f"сервис ТВ {et_serv_tv} \n\n"
-                              f"Итого: интернет {at_int + ti_int + et_int}({(at_int_pri + ti_int_pri + et_int_pri)}), "
-                              f"ТВ {et_tv}({et_tv_pri}), "
-                              f"домофон {et_dom}({et_dom_pri}), "
-                              f"сервис {at_serv + ti_serv + et_serv}, "
-                              f"сервис ТВ {et_serv_tv}")
-                    await bot.send_message(message.chat.id, answer)
-
-                    await bot.send_message(message.chat.id, "Идет подготовка адресов, ожидайте файл.")
-
-                    parser_answer = parser.get_address(rep_a)
-                    print(f"parser_answer {parser_answer}")
-
-                    # Сохраним ексель файл с номерами ремонтов
-                    # save_to_exel(rep_a, t_o, date_now_year)
-                    save_to_exel(parser_answer, t_o, date_now_year)
-                    # Попробуем отправить файл
-                    exel = open(f"files/{t_o}/{date_now_year}/{date_now_year}.xls", "rb")
-                    await bot.send_document(message.chat.id, exel)
-
+                month_folders = []  # Папка или папки в которых ищем отчеты мастеров.
+                if message.text == "месяц":
+                    # files = os.listdir(f"files/{t_o}/{month_year}")
+                    pth = f"files/{t_o}/{month_year}/"
+                    month_folders = [d for d in os.listdir(pth) if os.path.isdir(pth + d)]
+                    await bot.send_message(message.chat.id, f"Найдены папки: {month_folders}.")
                 else:
-                    await bot.send_message(message.chat.id, f"Папка /{t_o}/{date_now_year} не найдена!!!")
+                    month_folders = [date_now_year]  # Одна папка с текущей датой
+                print(f"month_folders: {month_folders}")
+                for month_folder in month_folders:
+                    await bot.send_message(message.chat.id, f"Готовим отчёт за {month_folder}")
+
+                    if os.path.exists(f"files/{t_o}/{month_year}/{month_folder}"):
+                        files = os.listdir(f"files/{t_o}/{month_year}/{month_folder}")
+                        await bot.send_message(message.chat.id, f"Найдено {len(files)} файл(ов).")
+                        rep_a, num_rep = report(files, month_folder, t_o, month_year)
+                        await bot.send_message(message.chat.id, f"Посчитано {num_rep[0]} файл(ов).")
+
+                        # Выведем имена мастеров для сверки
+                        rep_masters = ""
+                        for i in range(1, len(num_rep)):
+                            rep_masters += f'{num_rep[i]} \n'
+                        await bot.send_message(message.chat.id, rep_masters)
+
+                        print(files)
+                        at_int = rep_a["at_int"]
+                        at_int_pri = rep_a["at_int_pri"]
+                        at_serv = rep_a["at_serv"]
+
+                        ti_int = rep_a["ti_int"]
+                        ti_int_pri = rep_a["ti_int_pri"]
+                        ti_serv = rep_a["ti_serv"]
+
+                        et_int = rep_a["et_int"]
+                        et_int_pri = rep_a["et_int_pri"]
+                        et_tv = rep_a["et_tv"]
+                        et_tv_pri = rep_a["et_tv_pri"]
+                        et_dom = rep_a["et_dom"]
+                        et_dom_pri = rep_a["et_dom_pri"]
+                        et_serv = rep_a["et_serv"]
+                        et_serv_tv = rep_a["et_serv_tv"]
+
+                        answer = (f"{t_o} {month_folder} \n\n"
+                                  f"ЭХ: интернет {at_int}({at_int_pri} прив), сервис {at_serv} \n"
+                                  f"Тиера: интернет {ti_int}({ti_int_pri} прив), сервис {ti_serv} \n"
+                                  f"ЕТ: интернет {et_int}({et_int_pri} прив), "
+                                  f"ТВ {et_tv}({et_tv_pri} прив), \n"
+                                  f"домофон {et_dom}({et_dom_pri} прив), "
+                                  f"сервис интернет {et_serv}, "
+                                  f"сервис ТВ {et_serv_tv} \n\n"
+                                  f"Итого: интернет {at_int + ti_int + et_int}({(at_int_pri + ti_int_pri + et_int_pri)}), "
+                                  f"ТВ {et_tv}({et_tv_pri}), "
+                                  f"домофон {et_dom}({et_dom_pri}), "
+                                  f"сервис {at_serv + ti_serv + et_serv}, "
+                                  f"сервис ТВ {et_serv_tv}")
+                        await bot.send_message(message.chat.id, answer)
+
+                        await bot.send_message(message.chat.id, "Идет подготовка адресов, ожидайте файл.")
+
+                        parser_answer = parser.get_address(rep_a)
+                        print(f"parser_answer {parser_answer}")
+
+                        # Сохраним ексель файл с номерами ремонтов
+                        # save_to_exel(rep_a, t_o, date_now_year)
+                        save_to_exel(parser_answer, t_o, month_folder, month_year)
+                        # Попробуем отправить файл
+                        exel = open(f"files/{t_o}/{month_year}/{month_folder}.xls", "rb")
+                        await bot.send_document(message.chat.id, exel)
+
+                    else:
+                        await bot.send_message(message.chat.id, f"Папка /{t_o}/{month_year}/{month_folder} не найдена!!!")
 
         # elif message.text[0].lower() == "у" or message.text[0].lower() == "y":  # Английская y
         #     # Для получения удаления только авторизованный админ
@@ -261,9 +261,9 @@ async def echo_mess(message: types.Message):
         # Парсер сообщений и сохранение в файл
         else:
             try:
-                # Создадим папку за текущий день если не существует
-                if not os.path.exists(f"files/{t_o}/{date_now_year}"):
-                    os.makedirs(f"files/{t_o}/{date_now_year}")
+                # Создадим папку за текущий день/месяц если не существует
+                if not os.path.exists(f"files/{t_o}/{month_year}/{date_now_year}"):
+                    os.makedirs(f"files/{t_o}/{month_year}/{date_now_year}")
 
                 at_int = 0
                 at_int_pri = 0
@@ -684,7 +684,7 @@ async def echo_mess(message: types.Message):
                 to_save["list_repairs"] = list_repairs
 
                 # Сохраним в файл
-                with open(f'files/{t_o}/{date_now_year}/{to_save["master"]}.json', 'w') as outfile:
+                with open(f'files/{t_o}/{month_year}/{date_now_year}/{to_save["master"]}.json', 'w') as outfile:
                     json.dump(to_save, outfile, sort_keys=False, ensure_ascii=False, indent=4, separators=(',', ': '))
 
                 answe1 = (f"{t_o} {date_now_no_year}. Мастер {to_save['master']} \n\n"
@@ -705,9 +705,9 @@ async def echo_mess(message: types.Message):
                 await bot.send_message(message.chat.id, f"{answe1}")
                 # Используем функцию подсчета файлов для вывода посчитанных мастеров
                 # TODO возможно лучше создать отдельную функцию
-                if os.path.exists(f"files/{t_o}/{date_now_year}"):
-                    files = os.listdir(f"files/{t_o}/{date_now_year}")
-                    rep_a, num_rep = report(files, date_now_year, t_o)
+                if os.path.exists(f"files/{t_o}/{month_year}/{date_now_year}"):
+                    files = os.listdir(f"files/{t_o}/{month_year}/{date_now_year}")
+                    rep_a, num_rep = report(files, date_now_year, t_o, month_year)
 
                     # Выведем имена мастеров для сверки
                     rep_masters = "Получены отчеты: \n"
@@ -726,12 +726,14 @@ async def echo_mess(message: types.Message):
         print(f"user_id {user_id}")
 
 
-def save_to_exel(list_to_exel, t_o, date):
+def save_to_exel(list_to_exel, t_o, date, month_year):
     print("Запуск функции сохранения в ексель файл.")
     wb = xlwt.Workbook()
     # ws = wb.add_sheet(f'{table_name}')
     ws = wb.add_sheet(date)
     # print(f"list_repairs111 {list_to_exel['list_repairs']}")
+    # Для сохранения в json. Первая переменная обозначает читал ли файл программа составляющая общий отчет
+    list_repairs_for_json = [{"boss_read": False}, []]
 
     # for n, v in enumerate(list_to_exel["list_repairs"]):
     # for n, v in enumerate(list_to_exel):
@@ -743,19 +745,36 @@ def save_to_exel(list_to_exel, t_o, date):
         ws.write(n, 4, v[3][0])  # Улица
         ws.write(n, 5, v[3][1])  # Дом
         ws.write(n, 6, v[3][2])  # Квартира
+        ws.write(n, 9, v[3][3])  # Полный адрес
         ws.write(n, 17, f"=ГИПЕРССЫЛКА(CONCAT($Y$2;D{n+1});D{n+1})")  # Ссылка
-
+        # Добавим в json для файлика отчета
+        list_repairs_for_json[1].append(
+            {"brand": v[0],  # Бренд
+             "date": date,  # Дата
+             "num-ls": "",  # Номер договора. Пока пусто
+             "num-serv": v[1],  # Номер заявки
+             "street": v[3][0],  # Улица
+             "dom": v[3][1],  # Номер дома
+             "kv": v[3][2],  # Номер квартиры
+             "master": v[2],  # Мастер
+             "act": "?",  # Акт
+             "parking": "",  # Парковка
+             "summ": 400  # Сумма за сервис
+        })
     # Гиперссылка
     ws.write(1, 24, "https://us.gblnet.net/oper/?core_section=task&action=show&id=")
+
+    with open(f'files/{t_o}/{month_year}/{date}_list.json', 'w') as outfile:
+        json.dump(list_repairs_for_json, outfile, sort_keys=False, ensure_ascii=False, indent=4, separators=(',', ': '))
 
     # date_now = datetime.now()
     # ws.write(0, 0, f"Версия 005 Время: {date_now}")
 
-    wb.save(f'files/{t_o}/{date}/{date}.xls')
+    wb.save(f'files/{t_o}/{month_year}/{date}.xls')
     print("Документ сохранен")
 
 
-def report(files, date, t_o):
+def report(files, date, t_o, month_year):
     to_save = {
         "at_int": 0,
         "at_int_pri": 0,
@@ -783,7 +802,7 @@ def report(files, date, t_o):
         print(f"Попробуем наладить фильтр по названию файла {file}")
         print(f"Попробуем наладить фильтр по названию файла {file[-4:]}")
         if file[-4:] == "json":
-            with open(f'files/{t_o}/{date}/{file}', 'r', encoding='utf-8') as outfile:
+            with open(f'files/{t_o}/{month_year}/{date}/{file}', 'r', encoding='utf-8') as outfile:
                 # , errors='ignore'
                 # data = json.load(outfile)
                 print(f"будем искать такой файл: {file}")
@@ -812,7 +831,7 @@ def report(files, date, t_o):
 
     # Сохраним в файл
     # Хотя необходимости нет?
-    with open(f'files/{t_o}/{date}.json', 'w') as outfile:
+    with open(f'files/{t_o}/{month_year}/{date}.json', 'w') as outfile:
         json.dump(to_save, outfile, sort_keys=False, ensure_ascii=False, indent=4, separators=(',', ': '))
 
     return to_save, rep
