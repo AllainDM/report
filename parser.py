@@ -57,16 +57,19 @@ def get_address(list_service_masters):
                 soup = BeautifulSoup(html.text, 'html.parser')
             #     # # print(f"soup {soup}")
                 table = soup.find('table', class_="j_table")
-            #     # # table = soup.find('td', class_="j_table_td_left_na")
-                table_a = table.find_all('a')
-                print("Парсим ссылки")
-                for i in table_a:
-                    # print(i.text)
-                    # print(type(i))
-                    if 'Россия' in i.text:
-                        answer_parser_address = parser_address(i.text)
-                        v.append(answer_parser_address)
-                        print(answer_parser_address)
+                if table is None:
+                    v.append([" ", " ", " ", "!!! Внимание, возможно не верный номер сервиса."])
+                    print("!!! Внимание, возможно не верный номер сервиса.")
+                else:
+                    table_a = table.find_all('a')
+                    print("Парсим ссылки")
+                    for i in table_a:
+                        # print(i.text)
+                        # print(type(i))
+                        if 'Россия' in i.text:
+                            answer_parser_address = parser_address(i.text)
+                            v.append(answer_parser_address)
+                            print(answer_parser_address)
                 print("#################################################")
             else:
                 print("error")
