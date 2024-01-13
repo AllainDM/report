@@ -37,7 +37,7 @@ async def echo_mess(message: types.Message):
             t_o = "ТО Север"
         command = message.get_full_command()[1]  # [1].split('.')
         print(command)
-        if len(command) == 10:
+        if len(command) == 18:
             await bot.send_message(message.chat.id, f"Хотим удалить папку /{t_o}/{command}")
             try:
                 shutil.rmtree(f"files/{t_o}/{command}")
