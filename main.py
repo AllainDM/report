@@ -145,7 +145,7 @@ async def echo_mess(message: types.Message):
         # answer = []
         date_now = datetime.now()
         print(f"Текущая дата: {date_now}")
-        date_ago = date_now - timedelta(hours=15)  # - hours  # здесь мы выставляем минус 15 часов
+        date_ago = date_now - timedelta(hours=config.hour)  # - hours  # здесь мы выставляем минус 15 часов
         print(f"Новая дата: {date_ago}")
         # date_ago = date_now - timedelta(1)  # здесь мы выставляем минус день
         print(date_ago)
