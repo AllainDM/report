@@ -626,6 +626,7 @@ async def echo_mess(message: types.Message):
                                   replace("#", " ").
                                   replace("e", " ").        # Английская. Тут мастера могут записать етм
                                   replace("е", " ").        # Русская
+                                  replace(";", " ").
                                   replace(",", " ").
                                   replace("\xa0", " ").
                                   replace(".", " "))
@@ -646,6 +647,7 @@ async def echo_mess(message: types.Message):
                                   replace("#", " ").
                                   replace("e", " ").        # Английская. Тут мастера могут записать етм
                                   replace("е", " ").        # Русская
+                                  replace(";", " ").
                                   replace(",", " ").
                                   replace("\xa0", " ").
                                   replace(".", " "))
@@ -666,6 +668,7 @@ async def echo_mess(message: types.Message):
                                   replace("#", " ").
                                   replace("e", " ").        # Английская. Тут мастера могут записать етм
                                   replace("е", " ").        # Русская
+                                  replace(";", " ").
                                   replace(",", " ").
                                   replace("\xa0", " ").
                                   replace(".", " "))
