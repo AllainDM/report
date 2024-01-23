@@ -323,7 +323,9 @@ async def echo_mess(message: types.Message):
                               replace(";", "").
                               replace("\xa0", " ").
                               replace(".", " "))
-                new_txt_at_list = new_txt_at.split(" ")
+                new_txt_at_list_with_space = new_txt_at.split(" ")
+
+                new_txt_at_list = [i for i in new_txt_at_list_with_space if i]
                 print(new_txt_at_list)
 
                 # Сделаем перебор нового списка, где значения будем искать после ключевых слов
@@ -357,7 +359,9 @@ async def echo_mess(message: types.Message):
                               replace(";", "").
                               replace("\xa0", " ").
                               replace(".", " "))
-                new_txt_ti_list = new_txt_ti.split(" ")
+                new_txt_ti_list_with_space = new_txt_ti.split(" ")
+
+                new_txt_ti_list = [i for i in new_txt_ti_list_with_space if i]
                 print(new_txt_ti_list)
 
                 # Сделаем перебор нового списка, где значения будем искать после ключевых слов
@@ -391,7 +395,20 @@ async def echo_mess(message: types.Message):
                               replace(";", "").
                               replace("\xa0", " ").
                               replace(".", " "))
-                new_txt_et_list = new_txt_et.split(" ")
+                new_txt_et_list_with_space = new_txt_et.split(" ")
+
+                new_txt_et_list = [i for i in new_txt_et_list_with_space if i]
+                # Попробуем удалить лишние(двойные) пробелы в списке
+                print(f"Попробуем удалить лишние(двойные) пробелы в списке")
+                print(f"Длинна {len(new_txt_et_list)}")
+                print(new_txt_et_list)
+                # for num in range(len(new_txt_et_list)-1, 1, -1):
+                #     # print(f"Num if cikle {num}")
+                #     # print(new_txt_et_list[num])
+                #     if new_txt_et_list[num] == "" and new_txt_et_list[num-1] == "":
+                #         # print(new_txt_et_list[num])
+                #         new_txt_et_list.pop(num)
+
                 print(new_txt_et_list)
 
                 # Сделаем перебор нового списка, где значения будем искать после ключевых слов
