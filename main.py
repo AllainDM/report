@@ -61,6 +61,7 @@ async def echo_mess(message: types.Message):
 @dp.message_handler(commands=['del_file'])
 async def echo_mess(message: types.Message):
     # Получим ид пользователя и сравним со списком разрешенных в файле конфига
+    global num_rep
     user_id = message.from_user.id
     print(f"user_id {user_id}")
     t_o = ""
@@ -99,8 +100,10 @@ async def echo_mess(message: types.Message):
 
                 # Выведем имена мастеров для сверки
                 rep_masters = "Остались отчеты: \n"
-                for i in range(1, len(num_rep)):
-                    rep_masters += f'{num_rep[i]} \n'
+                new_files = os.listdir(f"files/{t_o}/{month_year}/{date_now_year}")
+                new_rep_a, new_num_rep = report(new_files, date_now_year, t_o, month_year)
+                for i in range(1, len(new_num_rep)):
+                    rep_masters += f'{new_num_rep[i]} \n'
                 await bot.send_message(message.chat.id, rep_masters)
             except OSError as error:
                 print("Возникла ошибка3.")
