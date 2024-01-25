@@ -334,19 +334,22 @@ async def echo_mess(message: types.Message):
                     if val.lower() == "интернет":
                         try:
                             at_int = int(new_txt_at_list[num + 1])  # Следующее значение после "интернет"
-                            at_int_flag = 1  # Флаг для проверки правильности отчета
+                            if at_int < 100:  # Проверка на длину значения, защита от номера сервиса
+                                at_int_flag = 1  # Флаг для проверки правильности отчета
                         except ValueError:
                             at_int = 0
                     elif val[0:4].lower() == "прив":  # or val[0:5].lower() == "привл"
                         try:
                             at_int_pri = int(new_txt_at_list[num - 1])  # Перед "прив"
-                            at_int_pri_flag = 1  # Флаг для проверки правильности отчета
+                            if at_int_pri < 100:  # Проверка на длину значения, защита от номера сервиса
+                                at_int_pri_flag = 1  # Флаг для проверки правильности отчета
                         except ValueError:
                             at_int_pri = 0
                     elif val.lower() == "сервис":
                         try:
                             at_serv = int(new_txt_at_list[num + 1])  # После "сервис"
-                            at_serv_flag = 1  # Флаг для проверки правильности отчета
+                            if at_serv < 100:  # Проверка на длину значения, защита от номера сервиса
+                                at_serv_flag = 1  # Флаг для проверки правильности отчета
                         except ValueError:
                             at_serv = 0
 
@@ -370,19 +373,22 @@ async def echo_mess(message: types.Message):
                     if val.lower() == "интернет":
                         try:
                             ti_int = int(new_txt_ti_list[num + 1])  # Следующее значение после "интернет"
-                            ti_int_flag = 1  # Флаг для проверки правильности отчета
+                            if ti_int < 100:  # Проверка на длину значения, защита от номера сервиса
+                                ti_int_flag = 1  # Флаг для проверки правильности отчета
                         except ValueError:
                             ti_int = 0
                     elif val[0:4].lower() == "прив":
                         try:
                             ti_int_pri = int(new_txt_ti_list[num - 1])  # Перед "прив"
-                            ti_int_pri_flag = 1  # Флаг для проверки правильности отчета
+                            if ti_int_pri < 100:  # Проверка на длину значения, защита от номера сервиса
+                                ti_int_pri_flag = 1  # Флаг для проверки правильности отчета
                         except ValueError:
                             ti_int_pri = 0
                     elif val.lower() == "сервис":
                         try:
                             ti_serv = int(new_txt_ti_list[num + 1])  # После "сервис"
-                            ti_serv_flag = 1  # Флаг для проверки правильности отчета
+                            if ti_serv < 100:  # Проверка на длину значения, защита от номера сервиса
+                                ti_serv_flag = 1  # Флаг для проверки правильности отчета
                         except ValueError:
                             ti_serv = 0
 
@@ -426,7 +432,8 @@ async def echo_mess(message: types.Message):
                         # print(f"тут интернет {new_txt_et_list[num + 1]}")
                         try:
                             et_int = int(new_txt_et_list[num + 1])  # Следующее значение после "интернет"
-                            et_int_flag = 1  # Флаг для проверки правильности отчета
+                            if et_int < 100:  # Проверка на длину значения, защита от номера сервиса
+                                et_int_flag = 1  # Флаг для проверки правильности отчета
                         except ValueError:
                             et_int = 0
                     elif val[0:4].lower() == "прив":
@@ -437,7 +444,8 @@ async def echo_mess(message: types.Message):
                             flag_priv_int += 1
                             try:
                                 et_int_pri = int(new_txt_et_list[num - 1])  # Перед "прив"
-                                et_int_pri_flag = 1  # Флаг для проверки правильности отчета
+                                if et_int_pri < 100:  # Проверка на длину значения, защита от номера сервиса
+                                    et_int_pri_flag = 1  # Флаг для проверки правильности отчета
                             except ValueError:
                                 et_int_pri = 0
                         elif flag_priv_tv == 0:  # Флаг привлеченного тв
@@ -445,7 +453,8 @@ async def echo_mess(message: types.Message):
                             flag_priv_tv += 1
                             try:
                                 et_tv_pri = int(new_txt_et_list[num - 1])  # Перед "прив"
-                                et_tv_pri_flag = 1  # Флаг для проверки правильности отчета
+                                if et_tv_pri < 100:  # Проверка на длину значения, защита от номера сервиса
+                                    et_tv_pri_flag = 1  # Флаг для проверки правильности отчета
                             except ValueError:
                                 et_tv_pri = 0
                         elif flag_priv_dom == 0:  # Флаг привлеченного домофона
@@ -453,7 +462,8 @@ async def echo_mess(message: types.Message):
                             flag_priv_dom += 1
                             try:
                                 et_dom_pri = int(new_txt_et_list[num - 1])  # Перед "прив"
-                                et_dom_pri_flag = 1  # Флаг для проверки правильности отчета
+                                if et_dom_pri < 100:  # Проверка на длину значения, защита от номера сервиса
+                                    et_dom_pri_flag = 1  # Флаг для проверки правильности отчета
                             except ValueError:
                                 et_dom_pri = 0
                     # Сочетание тв
@@ -462,7 +472,8 @@ async def echo_mess(message: types.Message):
                             # print("тут сервис тв")
                             try:
                                 et_serv_tv = int(new_txt_et_list[num + 1])  # После "тв"
-                                et_serv_tv_flag = 1  # Флаг для проверки правильности отчета
+                                if et_serv_tv < 100:  # Проверка на длину значения, защита от номера сервиса
+                                    et_serv_tv_flag = 1  # Флаг для проверки правильности отчета
                             except ValueError:
                                 et_serv_tv = 0
                             except IndexError:  # После сервисов тв часто не ставят значение, а это конец сообщения
@@ -472,7 +483,8 @@ async def echo_mess(message: types.Message):
                             # print(new_txt_et_list[num + 1])
                             try:
                                 et_tv = int(new_txt_et_list[num + 1])  # После "тв"
-                                et_tv_flag = 1  # Флаг для проверки правильности отчета
+                                if et_tv < 100:  # Проверка на длину значения, защита от номера сервиса
+                                    et_tv_flag = 1  # Флаг для проверки правильности отчета
                             except ValueError:
                                 et_tv = 0
                             except IndexError:  # После сервисов тв часто не ставят значение, а это конец сообщения
@@ -480,13 +492,15 @@ async def echo_mess(message: types.Message):
                     elif val.lower() == "домофон":
                         try:
                             et_dom = int(new_txt_et_list[num + 1])  # После "домофон"
-                            et_dom_flag = 1  # Флаг для проверки правильности отчета
+                            if et_dom < 100:  # Проверка на длину значения, защита от номера сервиса
+                                et_dom_flag = 1  # Флаг для проверки правильности отчета
                         except ValueError:
                             et_dom = 0
                     elif val.lower() == "сервис" and new_txt_et_list[num + 1].lower() == "интернет":
                         try:
                             et_serv = int(new_txt_et_list[num + 2])  # + 2
-                            et_serv_flag = 1  # Флаг для проверки правильности отчета
+                            if et_serv < 100:  # Проверка на длину значения, защита от номера сервиса
+                                et_serv_flag = 1  # Флаг для проверки правильности отчета
                         except ValueError:
                             et_serv = 0
 
