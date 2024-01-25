@@ -61,7 +61,7 @@ async def echo_mess(message: types.Message):
 @dp.message_handler(commands=['del_file'])
 async def echo_mess(message: types.Message):
     # Получим ид пользователя и сравним со списком разрешенных в файле конфига
-    global num_rep
+    # global num_rep
     user_id = message.from_user.id
     print(f"user_id {user_id}")
     t_o = ""
@@ -156,7 +156,20 @@ async def echo_mess(message: types.Message):
         date_now_no_year = date_ago.strftime("%d.%m")
         month_year = date_ago.strftime("%m.%Y")
         # Функция отправки отчета в телеграм по уже собранным данным
-        if message.text == "1" or message.text == "отчет" or message.text == "отчёт" or message.text == "месяц":
+        if (message.text == "1" or message.text == "отчет" or message.text == "отчёт" or message.text == "месяц"
+                or message.text == "2" or message.text == "3"):
+            if message.text == "2":
+                date_ago = date_ago - timedelta(1)
+                print(f"Новая дата: {date_ago}")
+                print(date_ago)
+                date_now_year = date_ago.strftime("%d.%m.%Y")
+                month_year = date_ago.strftime("%m.%Y")
+            if message.text == "3":
+                date_ago = date_ago - timedelta(2)
+                print(f"Новая дата: {date_ago}")
+                print(date_ago)
+                date_now_year = date_ago.strftime("%d.%m.%Y")
+                month_year = date_ago.strftime("%m.%Y")
             # Для получения отчета только авторизованный админ
             if user_id in config.users:
                 month_folders = []  # Папка или папки в которых ищем отчеты мастеров.
