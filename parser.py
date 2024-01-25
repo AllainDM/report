@@ -63,14 +63,20 @@ def get_address(list_service_masters):
                 else:
                     table_a = table.find_all('a')
                     print("Парсим ссылки")
-                    for i in table_a:
-                        # print(i.text)
-                        # print(type(i))
-                        if 'Россия' in i.text:
-                            answer_parser_address = parser_address(i.text)
-                            v.append(answer_parser_address)
-                            print(answer_parser_address)
-                print("#################################################")
+                    print(table_a)
+                    if table_a:
+                        for i in table_a:
+                            # print(i.text)
+                            # print(type(i))
+                            if 'Россия' in i.text:
+                                answer_parser_address = parser_address(i.text)
+                                v.append(answer_parser_address)
+                                print(answer_parser_address)
+                    else:
+                        v.append([" ", " ", " ", "!!! Внимание, возможно не верный номер сервиса."])
+                        print("!!! Внимание, возможно не верный номер сервиса.")
+                print("###############################################################################################")
+                print("###############################################################################################")
             else:
                 print("error")
         except requests.exceptions.TooManyRedirects as e:

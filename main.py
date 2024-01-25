@@ -788,6 +788,7 @@ def save_to_exel(list_to_exel, t_o, date, month_year):
     # for n, v in enumerate(list_to_exel["list_repairs"]):
     # for n, v in enumerate(list_to_exel):
     for n, v in enumerate(list_to_exel):
+        print(f"{n}: {v}")
         ws.write(n, 0, v[0])  # Бренд
         ws.write(n, 1, date)  # Дата
         ws.write(n, 3, v[1])  # Номер
