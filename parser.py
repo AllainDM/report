@@ -66,8 +66,6 @@ def get_address(list_service_masters):
                     print(table_a)
                     if table_a:
                         for i in table_a:
-                            # print(i.text)
-                            # print(type(i))
                             if 'Россия' in i.text:
                                 answer_parser_address = parser_address(i.text)
                                 v.append(answer_parser_address)

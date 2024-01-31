@@ -51,17 +51,12 @@ async def echo_mess(message: types.Message):
 
     else:
         await bot.send_message(message.chat.id, "Неа")
-    # else:
-    #     await bot.send_message(message.chat.id, f"Дата введена некорректно")
-    #
-    # await bot.send_message(message.chat.id, f"test")
 
 
 # Удаление папки
 @dp.message_handler(commands=['del_file'])
 async def echo_mess(message: types.Message):
     # Получим ид пользователя и сравним со списком разрешенных в файле конфига
-    # global num_rep
     user_id = message.from_user.id
     print(f"user_id {user_id}")
     t_o = ""
@@ -79,7 +74,6 @@ async def echo_mess(message: types.Message):
             t_o = "ТО Запад"
         elif user_id == 652928171:
             t_o = "ТО Север"
-        # command = message.get_full_command()[1]  # [1].split('.')
 
         # Используем функцию подсчета файлов для вывода посчитанных мастеров
         # TODO лучше создать отдельную функцию
@@ -235,7 +229,6 @@ async def echo_mess(message: types.Message):
                         print(f"parser_answer {parser_answer}")
 
                         # Сохраним ексель файл с номерами ремонтов
-                        # save_to_exel(rep_a, t_o, date_now_year)
                         save_to_exel(parser_answer, t_o, month_folder, month_year)
                         # Попробуем отправить файл
                         exel = open(f"files/{t_o}/{month_year}/{month_folder}.xls", "rb")
@@ -244,36 +237,6 @@ async def echo_mess(message: types.Message):
                     else:
                         await bot.send_message(message.chat.id, f"Папка /{t_o}/{month_year}/{month_folder} не найдена!!!")
 
-        # elif message.text[0].lower() == "у" or message.text[0].lower() == "y":  # Английская y
-        #     # Для получения удаления только авторизованный админ
-        #     if user_id in config.users:
-        #         search_date = message.text.split(" ")
-        #         if len(search_date) > 1:
-        #             await bot.send_message(message.chat.id, f"Хотим удалить папку /{t_o}/{search_date[1]}")
-        #             try:
-        #                 shutil.rmtree(f"files/{t_o}/{search_date[1]}")
-        #                 print(f"/{t_o}/{search_date[1]} удален")
-        #                 await bot.send_message(message.chat.id, f"Папка /{t_o}/{search_date[1]} удалена")
-        #             except OSError as error:
-        #                 print("Возникла ошибка2.")
-        #                 await bot.send_message(message.chat.id, f"Папка /{t_o}/{search_date[1]} не найдена!!!")
-        #         else:
-        #             await bot.send_message(message.chat.id, f"Дата не указана или указана не верно")
-        # elif message.text[0].lower() == "ф":  # or message.text[0].lower() == "y":  # Английская y
-        #     # Для получения удаления только авторизованный админ
-        #     if user_id in config.users:
-        #         search_master = message.text.split(" ")
-        #         if len(search_master) > 1:
-        #             await bot.send_message(message.chat.id, f"Хотим удалить файл /{t_o}/{date_now_year}/{search_master[1]}")
-        #             try:
-        #                 os.remove(f"files/{t_o}/{date_now_year}/{search_master[1]}.json")
-        #                 print(f"/{t_o}/{date_now_year}/{search_master[1]} удален")
-        #                 await bot.send_message(message.chat.id, f"Файл /{t_o}/{date_now_year}/{search_master[1]} удален")
-        #             except OSError as error:
-        #                 print("Возникла ошибка3.")
-        #                 await bot.send_message(message.chat.id, f"Файл /{t_o}/{date_now_year}/{search_master[1]} не найден!!!")
-        #         else:
-        #             await bot.send_message(message.chat.id, f"Файл не указан или указан не верно")
         # Парсер сообщений и сохранение в файл
         else:
             try:
@@ -812,14 +775,10 @@ async def echo_mess(message: types.Message):
 def save_to_exel(list_to_exel, t_o, date, month_year):
     print("Запуск функции сохранения в ексель файл.")
     wb = xlwt.Workbook()
-    # ws = wb.add_sheet(f'{table_name}')
     ws = wb.add_sheet(date)
-    # print(f"list_repairs111 {list_to_exel['list_repairs']}")
     # Для сохранения в json. Первая переменная обозначает читал ли файл программа составляющая общий отчет
     list_repairs_for_json = [{"boss_read": False}, []]
 
-    # for n, v in enumerate(list_to_exel["list_repairs"]):
-    # for n, v in enumerate(list_to_exel):
     for n, v in enumerate(list_to_exel):
         print(f"{n}: {v}")
         ws.write(n, 0, v[0])  # Бренд
@@ -887,8 +846,6 @@ def report(files, date, t_o, month_year):
         print(f"Попробуем наладить фильтр по названию файла {file[-4:]}")
         if file[-4:] == "json":
             with open(f'files/{t_o}/{month_year}/{date}/{file}', 'r', encoding='utf-8') as outfile:
-                # , errors='ignore'
-                # data = json.load(outfile)
                 print(f"будем искать такой файл: {file}")
                 data = json.loads(outfile.read())
                 print(data)
@@ -919,10 +876,6 @@ def report(files, date, t_o, month_year):
         json.dump(to_save, outfile, sort_keys=False, ensure_ascii=False, indent=4, separators=(',', ': '))
 
     return to_save, rep
-
-
-# def search_reports():
-#     ...
 
 
 if __name__ == '__main__':
