@@ -151,7 +151,7 @@ async def echo_mess(message: types.Message):
         month_year = date_ago.strftime("%m.%Y")
         # Функция отправки отчета в телеграм по уже собранным данным
         if (message.text == "1" or message.text == "отчет" or message.text == "отчёт" or message.text == "месяц"
-                or message.text == "2" or message.text == "3"):
+                or message.text == "2" or message.text == "3" or message.text == "привлеченные"):
             if message.text == "2":
                 date_ago = date_ago - timedelta(1)
                 print(f"Новая дата: {date_ago}")
@@ -167,20 +167,58 @@ async def echo_mess(message: types.Message):
             # Для получения отчета только авторизованный админ
             if user_id in config.users:
                 month_folders = []  # Папка или папки в которых ищем отчеты мастеров.
-                if message.text == "месяц":
+                if message.text.lower() == "месяц" or message.text.lower() == "привлеченные":
                     # files = os.listdir(f"files/{t_o}/{month_year}")
                     pth = f"files/{t_o}/{month_year}/"
                     month_folders = [d for d in os.listdir(pth) if os.path.isdir(pth + d)]
+                    month_folders.sort()
                     await bot.send_message(message.chat.id, f"Найдены папки: {month_folders}.")
                 else:
                     month_folders = [date_now_year]  # Одна папка с текущей датой
                 print(f"month_folders: {month_folders}")
+                if message.text == "привлеченные":
+                    dict_all_priv = {}
+
+                    print("Попробуем собрать привлеченных")
+                    for month_folder in month_folders:
+                        if os.path.exists(f"files/{t_o}/{month_year}/{month_folder}"):
+                            files = os.listdir(f"files/{t_o}/{month_year}/{month_folder}")
+                            # await bot.send_message(message.chat.id, f"Найдено {len(files)} файл(ов).")
+                            rep_priv, dict_priv = report_priv(files, month_folder, t_o, month_year)
+                            if len(rep_priv) > 0:
+                                await bot.send_message(message.chat.id,
+                                                       f"Привлеченные за {month_folder} \n {rep_priv}")
+                                # await bot.send_message(message.chat.id, f"Привлеченные за {month_folder} \n {dict_priv}")
+                                # await bot.send_message(message.chat.id, dict_priv)
+                            # Попробуем переобрать словарь добавиви значения к базовому
+                            if len(dict_priv) > 0:
+                                print("Нашли привлеченных.")
+                                for k, v in dict_priv.items():
+                                    print(f"Нашли k: {k}, v {v}.")
+                                    # print("Нашли привлеченных.")
+                                    if k in dict_all_priv.keys():
+                                        dict_all_priv[k] += v
+                                    else:
+                                        dict_all_priv[k] = v
+                    answer = ""
+                    answer_list = []
+                    for k, v in dict_all_priv.items():
+                        answer_list.append(f"{k} {v}")
+                    answer_list.sort()
+                    for i in answer_list:
+                        answer += f"{i} \n"
+                    # await bot.send_message(message.chat.id, "Тут должен быть результат")
+                    await bot.send_message(message.chat.id, answer)
+                    # Просто завершим выполнение программы
+                    return
+
                 for month_folder in month_folders:
                     await bot.send_message(message.chat.id, f"Готовим отчёт за {month_folder}")
 
                     if os.path.exists(f"files/{t_o}/{month_year}/{month_folder}"):
                         files = os.listdir(f"files/{t_o}/{month_year}/{month_folder}")
                         await bot.send_message(message.chat.id, f"Найдено {len(files)} файл(ов).")
+                        # report возвращает словарь со статистикой
                         rep_a, num_rep = report(files, month_folder, t_o, month_year)
                         await bot.send_message(message.chat.id, f"Посчитано {num_rep[0]} файл(ов).")
 
@@ -876,6 +914,70 @@ def report(files, date, t_o, month_year):
         json.dump(to_save, outfile, sort_keys=False, ensure_ascii=False, indent=4, separators=(',', ': '))
 
     return to_save, rep
+
+
+def report_priv(files, date, t_o, month_year):
+    dict_priv = {}
+    list_priv = []
+    for file in files:
+        print(f"Попробуем наладить фильтр по названию файла {file}")
+        print(f"Попробуем наладить фильтр по названию файла {file[-4:]}")
+        if file[-4:] == "json":
+            with open(f'files/{t_o}/{month_year}/{date}/{file}', 'r', encoding='utf-8') as outfile:
+                print(f"будем искать такой файл: {file}")
+                data = json.loads(outfile.read())
+                print(data)
+                if data["at_int_pri"] > 0:
+                    list_priv.append(f'{file[:-4]} ЭХ: {data["at_int_pri"]}')
+                    # dict_priv[f"{file[:-5]} ЭХ: "] = data["at_int_pri"]
+                    if f"{file[:-5]} ЭХ: " in dict_priv.keys():
+                        print("Ключ есть")
+                        dict_priv[f"{file[:-5]} ЭХ: "] += data["at_int_pri"]
+                    else:
+                        dict_priv[f"{file[:-5]} ЭХ: "] = data["at_int_pri"]
+
+                if data["ti_int_pri"] > 0:
+                    list_priv.append(f'{file[:-4]} Тиера: {data["ti_int_pri"]}')
+
+                    if f"{file[:-5]} Тиера: " in dict_priv.keys():
+                        dict_priv[f"{file[:-5]} Тиера: "] += data["ti_int_pri"]
+                    else:
+                        dict_priv[f"{file[:-5]} Тиера: "] = data["ti_int_pri"]
+
+                if data["et_int_pri"] > 0:
+                    list_priv.append(f'{file[:-4]} ЕТ интернет: {data["et_int_pri"]}')
+
+                    if f"{file[:-5]} ЕТ интернет: " in dict_priv.keys():
+                        dict_priv[f"{file[:-5]} ЕТ интернет: "] += data["et_int_pri"]
+                    else:
+                        dict_priv[f"{file[:-5]} ЕТ интернет: "] = data["et_int_pri"]
+
+                if data["et_tv_pri"] > 0:
+                    list_priv.append(f'{file[:-4]} ЕТ тв: {data["et_tv_pri"]}')
+
+                    if f"{file[:-5]} ЕТ тв: " in dict_priv.keys():
+                        dict_priv[f"{file[:-5]} ЕТ тв: "] += data["et_tv_pri"]
+                    else:
+                        dict_priv[f"{file[:-5]} ЕТ тв: "] = data["et_tv_pri"]
+
+                if data["et_dom_pri"] > 0:
+                    list_priv.append(f'{file[:-4]} ЕТ домофон: {data["et_dom_pri"]}')
+
+                    if f"{file[:-5]} ЕТ домофон: " in dict_priv.keys():
+                        dict_priv[f"{file[:-5]} ЕТ домофон: "] += data["et_dom_pri"]
+                    else:
+                        dict_priv[f"{file[:-5]} ЕТ домофон: "] = data["et_dom_pri"]
+
+    # Сохраним в файл
+    # Хотя необходимости нет?
+    # with open(f'files/{t_o}/{month_year}/{date}_dict_priv.json', 'w') as outfile:
+    #     json.dump(dict_priv, outfile, sort_keys=False, ensure_ascii=False, indent=4, separators=(',', ': '))
+
+    with open(f'files/{t_o}/{month_year}/{date}_dict_priv.json', 'w') as outfile:
+        json.dump(list_priv, outfile, sort_keys=False, ensure_ascii=False, indent=4, separators=(',', ': '))
+
+    # return dict_priv
+    return list_priv, dict_priv
 
 
 if __name__ == '__main__':
