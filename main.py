@@ -826,7 +826,8 @@ def save_to_exel(list_to_exel, t_o, date, month_year):
         ws.write(n, 4, v[3][0])  # Улица
         ws.write(n, 5, v[3][1])  # Дом
         ws.write(n, 6, v[3][2])  # Квартира
-        ws.write(n, 9, v[3][3])  # Полный адрес
+        ws.write(n, 9, v[4])  # Тип задания
+        ws.write(n, 26, v[3][3])  # Полный адрес
         ws.write(n, 17, f"=ГИПЕРССЫЛКА(CONCAT($Y$2;D{n+1});D{n+1})")  # Ссылка
         # Добавим в json для файлика отчета
         list_repairs_for_json[1].append(

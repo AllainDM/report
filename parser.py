@@ -57,6 +57,11 @@ def get_address(list_service_masters):
                 soup = BeautifulSoup(html.text, 'html.parser')
             #     # # print(f"soup {soup}")
                 table = soup.find('table', class_="j_table")
+                # Так же сразу найдем тип задания.
+                table_type_task = soup.find(class_="label_h2")
+                table_type_task_span = table_type_task.find('span')
+                print(f"Тут может быть таск: {table_type_task_span.text}")
+
                 if table is None:
                     v.append([" ", " ", " ", "!!! Внимание, возможно не верный номер сервиса."])
                     print("!!! Внимание, возможно не верный номер сервиса.")
@@ -73,6 +78,8 @@ def get_address(list_service_masters):
                     else:
                         v.append([" ", " ", " ", "!!! Внимание, возможно не верный номер сервиса."])
                         print("!!! Внимание, возможно не верный номер сервиса.")
+                # Так же в любом случае добавляем полученный тип задания.
+                v.append(table_type_task_span.text)
                 print("###############################################################################################")
                 print("###############################################################################################")
             else:
