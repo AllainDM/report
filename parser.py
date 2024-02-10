@@ -70,13 +70,18 @@ def get_address(list_service_masters):
                     print("Парсим ссылки")
                     print(table_a)
                     if table_a:
+                        answer_parser_address = ""
                         for i in table_a:
                             if 'Россия' in i.text:
                                 answer_parser_address = parser_address(i.text)
                                 v.append(answer_parser_address)
                                 print(answer_parser_address)
+                        if answer_parser_address == "":
+                            print("Адрес не найден")
+                            v.append(["! Возможно не верный номер сервиса.", "", "", ""])
+                            print("!!! Внимание, возможно не верный номер сервиса.")
                     else:
-                        v.append([" ", " ", " ", "!!! Внимание, возможно не верный номер сервиса."])
+                        v.append(["-", "-", "-", "!!! Внимание, возможно не верный номер сервиса."])
                         print("!!! Внимание, возможно не верный номер сервиса.")
                 # Так же в любом случае добавляем полученный тип задания.
                 v.append(table_type_task_span.text)
