@@ -20,6 +20,8 @@ if not os.path.exists(f"files/ТО Запад"):
     os.makedirs(f"files/ТО Запад")
 if not os.path.exists(f"files/ТО Север"):
     os.makedirs(f"files/ТО Север")
+if not os.path.exists(f"files/ТО Юг"):
+    os.makedirs(f"files/ТО Юг")
 
 
 # Удаление папки
@@ -35,6 +37,8 @@ async def echo_mess(message: types.Message):
             t_o = "ТО Запад"
         elif user_id == 652928171:
             t_o = "ТО Север"
+        elif user_id == 785030820 or user_id == 1283252616:
+            t_o = "ТО Юг"
         command = message.get_full_command()[1]  # [1].split('.')
         print(command)
         if len(command) == 18:
@@ -74,6 +78,8 @@ async def echo_mess(message: types.Message):
             t_o = "ТО Запад"
         elif user_id == 652928171:
             t_o = "ТО Север"
+        elif user_id == 785030820 or user_id == 1283252616:
+            t_o = "ТО Юг"
 
         # Используем функцию подсчета файлов для вывода посчитанных мастеров
         # TODO лучше создать отдельную функцию
@@ -138,6 +144,10 @@ async def echo_mess(message: types.Message):
             t_o = "ТО Запад"
         elif group_id == 1001534981751:
             t_o = "ТО Север"
+        elif user_id == 785030820 or user_id == 1283252616:
+            t_o = "ТО Юг"
+        elif group_id == 1001828053187:
+            t_o = "ТО Юг"
 
         # answer = []
         date_now = datetime.now()
