@@ -292,6 +292,12 @@ async def echo_mess(message: types.Message):
                 if not os.path.exists(f"files/{t_o}/{month_year}/{date_now_year}"):
                     os.makedirs(f"files/{t_o}/{month_year}/{date_now_year}")
 
+                # Для Юга
+                # if user_id == 785030820 or user_id == 1283252616 or group_id == 1001828053187:
+                at_int2 = 0
+                at_int_pri2 = 0
+                at_serv2 = 0
+
                 at_int = 0
                 at_int_pri = 0
                 at_serv = 0
@@ -310,6 +316,10 @@ async def echo_mess(message: types.Message):
                 et_serv_tv = 0
 
                 # Создадим флаги для поиска ошибок
+                at_int_flag2 = 0
+                at_int_pri_flag2 = 0
+                at_serv_flag2 = 0
+
                 at_int_flag = 0
                 at_int_pri_flag = 0
                 at_serv_flag = 0
@@ -338,6 +348,65 @@ async def echo_mess(message: types.Message):
                 # txt = message.text.split(":")
                 txt = pre_txt.split(":")
                 print(f"txt {txt}")
+
+                # Для Юга мой ид: ( 785030820 ) 976374565
+                # if user_id == 976374565 or user_id == 1283252616 or group_id == 1001828053187:
+                print(user_id)
+                # Строчка ЭтХоум
+                # TODO тут Лана или Невское для Юга
+                # print(f"тут1 {txt[1]}")
+                # Заменим скобки и перенос строки пробелами и разобьем на список
+                new_txt_at2 = (txt[0].replace("(", " ").
+                               replace(")", " ").
+                               replace("\n", " ").
+                               replace(",", " ").
+                               replace(":", "").
+                               replace(";", "").
+                               replace("\xa0", " ").
+                               replace(".", " "))
+                new_txt_at_list_with_space2 = new_txt_at2.split(" ")
+
+                new_txt_at_list2 = [i for i in new_txt_at_list_with_space2 if i]
+                print(new_txt_at_list2)
+
+                # Сделаем перебор нового списка, где значения будем искать после ключевых слов
+                for num, val in enumerate(new_txt_at_list2):
+                    # print(f"111 {num, val}")
+                    if val.lower() == "интернет":
+                        print("Нашли интернет")
+                        try:
+                            # at_int = int(new_txt_at_list[num + 1])  # Следующее значение после "интернет"
+                            at_int2 = int(new_txt_at_list2.pop(num + 1))  # Следующее значение после "интернет"
+                            print(at_int2)
+                            if at_int2 < 100:  # Проверка на длину значения, защита от номера сервиса
+                                at_int_flag = 1  # Флаг для проверки правильности отчета
+                        except ValueError:
+                            at_int2 = 0
+                        print(new_txt_at_list2)
+                for num, val in enumerate(new_txt_at_list2):
+                    if val[0:4].lower() == "прив":  # or val[0:5].lower() == "привл"
+                        print("Нашли интернет прив")
+                        try:
+                            # at_int_pri = int(new_txt_at_list[num - 1])  # Перед "прив"
+                            at_int_pri2 = int(new_txt_at_list2.pop(num - 1))  # Перед "прив"
+                            print(at_int_pri2)
+                            if at_int_pri2 < 100:  # Проверка на длину значения, защита от номера сервиса
+                                at_int_pri_flag = 1  # Флаг для проверки правильности отчета
+                        except ValueError:
+                            at_int_pri2 = 0
+                        print(new_txt_at_list2)
+                for num, val in enumerate(new_txt_at_list2):
+                    if val.lower() == "сервис":
+                        print("Нашли сервис")
+                        try:
+                            # at_serv = int(new_txt_at_list[num + 1])  # После "сервис"
+                            at_serv2 = int(new_txt_at_list2.pop(num + 1))  # После "сервис"
+                            print(at_serv2)
+                            if at_serv2 < 100:  # Проверка на длину значения, защита от номера сервиса
+                                at_serv_flag = 1  # Флаг для проверки правильности отчета
+                        except ValueError:
+                            at_serv2 = 0
+                        print(new_txt_at_list2)
 
                 # Строчка ЭтХоум
                 # print(f"тут1 {txt[1]}")
@@ -564,26 +633,55 @@ async def echo_mess(message: types.Message):
                             except ValueError:
                                 et_dom_pri = 0
 
-                to_save = {
-                    "at_int": at_int,
-                    "at_int_pri": at_int_pri,
-                    "at_serv": at_serv,
+                # Для Юга мой ид: 976374565 ( 785030820 )
+                if user_id == 785030820 or user_id == 1283252616 or group_id == 1001828053187:
+                    print(user_id)
+                    to_save = {
+                        "at_int2": at_int2,
+                        "at_int_pri2": at_int_pri2,
+                        "at_serv2": at_serv2,
 
-                    "ti_int": ti_int,
-                    "ti_int_pri": ti_int_pri,
-                    "ti_serv": ti_serv,
+                        "at_int": at_int,
+                        "at_int_pri": at_int_pri,
+                        "at_serv": at_serv,
 
-                    "et_int": et_int,
-                    "et_int_pri": et_int_pri,
-                    "et_tv": et_tv,
-                    "et_tv_pri": et_tv_pri,
-                    "et_dom": et_dom,
-                    "et_dom_pri": et_dom_pri,
-                    "et_serv": et_serv,
-                    "et_serv_tv": et_serv_tv,
-                    'master': "не указан",
-                    'msg_err_txt': ""  # Запись текста с возможными ошибками
-                }
+                        "ti_int": ti_int,
+                        "ti_int_pri": ti_int_pri,
+                        "ti_serv": ti_serv,
+
+                        "et_int": et_int,
+                        "et_int_pri": et_int_pri,
+                        "et_tv": et_tv,
+                        "et_tv_pri": et_tv_pri,
+                        "et_dom": et_dom,
+                        "et_dom_pri": et_dom_pri,
+                        "et_serv": et_serv,
+                        "et_serv_tv": et_serv_tv,
+                        'master': "не указан",
+                        'msg_err_txt': ""  # Запись текста с возможными ошибками
+                    }
+                else:
+                    to_save = {
+                        "at_int": at_int,
+                        "at_int_pri": at_int_pri,
+                        "at_serv": at_serv,
+
+                        "ti_int": ti_int,
+                        "ti_int_pri": ti_int_pri,
+                        "ti_serv": ti_serv,
+
+                        "et_int": et_int,
+                        "et_int_pri": et_int_pri,
+                        "et_tv": et_tv,
+                        "et_tv_pri": et_tv_pri,
+                        "et_dom": et_dom,
+                        "et_dom_pri": et_dom_pri,
+                        "et_serv": et_serv,
+                        "et_serv_tv": et_serv_tv,
+                        'master': "не указан",
+                        'msg_err_txt': ""  # Запись текста с возможными ошибками
+                    }
+                print(f"Для сохранения: {to_save}")
 
                 print(message)
                 # Найдем фамилию мастера
@@ -707,7 +805,7 @@ async def echo_mess(message: types.Message):
 
                 # Так же создадим список для сохранения номеров ремонтов
                 list_repairs = []
-
+                # TODO еще нужны номера ремонтов для Ланы или Невского
                 # После получения мастера соберем список ремонтов
                 # Запишем номера ремонтов в ЭтХоум
                 # Заменим скобки и перенос строки пробелами и разобьем на список
@@ -867,26 +965,48 @@ def save_to_exel(list_to_exel, t_o, date, month_year):
 
 
 def report(files, date, t_o, month_year):
-    to_save = {
-        "at_int": 0,
-        "at_int_pri": 0,
-        "at_serv": 0,
+    if t_o == "ТО Юг":
+        to_save = {
+            "at_int2": 0,
+            "at_int_pri2": 0,
+            "at_serv2": 0,
 
-        "ti_int": 0,
-        "ti_int_pri": 0,
-        "ti_serv": 0,
+            "ti_int": 0,
+            "ti_int_pri": 0,
+            "ti_serv": 0,
 
-        "et_int": 0,
-        "et_int_pri": 0,
-        "et_tv": 0,
-        "et_tv_pri": 0,
-        "et_dom": 0,
-        "et_dom_pri": 0,
-        "et_serv": 0,
-        "et_serv_tv": 0,
-        "list_repairs": [],
-        "msg_err_txt": []
-    }
+            "et_int": 0,
+            "et_int_pri": 0,
+            "et_tv": 0,
+            "et_tv_pri": 0,
+            "et_dom": 0,
+            "et_dom_pri": 0,
+            "et_serv": 0,
+            "et_serv_tv": 0,
+            "list_repairs": [],
+            "msg_err_txt": []
+        }
+    else:
+        to_save = {
+            "at_int": 0,
+            "at_int_pri": 0,
+            "at_serv": 0,
+
+            "ti_int": 0,
+            "ti_int_pri": 0,
+            "ti_serv": 0,
+
+            "et_int": 0,
+            "et_int_pri": 0,
+            "et_tv": 0,
+            "et_tv_pri": 0,
+            "et_dom": 0,
+            "et_dom_pri": 0,
+            "et_serv": 0,
+            "et_serv_tv": 0,
+            "list_repairs": [],
+            "msg_err_txt": []
+        }
     # Возвращаем количество отчетов для сверки. Первый индекс количество, остальные фамилии мастеров
     rep = [0]
     # masters = []
@@ -898,6 +1018,11 @@ def report(files, date, t_o, month_year):
                 print(f"будем искать такой файл: {file}")
                 data = json.loads(outfile.read())
                 print(data)
+                if t_o == "ТО Юг":
+                    to_save["at_int2"] += data["at_int2"]
+                    to_save["at_int_pri2"] += data["at_int_pri2"]
+                    to_save["at_serv2"] += data["at_serv2"]
+
                 to_save["at_int"] += data["at_int"]
                 to_save["at_int_pri"] += data["at_int_pri"]
                 to_save["at_serv"] += data["at_serv"]
