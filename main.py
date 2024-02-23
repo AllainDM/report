@@ -138,17 +138,17 @@ async def echo_mess(message: types.Message):
     t_o = ""
     if user_id in config.users or group_id in config.groups:
         # Определим ТО по ид юзера в телеграм 1240018773
-        if user_id == 976374565 or user_id == 1240018773:
-            t_o = "ТО Запад"
-        elif user_id == 652928171:
-            t_o = "ТО Север"
-        elif group_id == 4066612012:
+        if group_id == 4066612012:
             t_o = "ТО Запад"
         elif group_id == 1001534981751:
             t_o = "ТО Север"
-        elif user_id == 785030820 or user_id == 1283252616:
-            t_o = "ТО Юг"
         elif group_id == 1001828053187:
+            t_o = "ТО Юг"
+        elif user_id == 976374565 or user_id == 1240018773:
+            t_o = "ТО Запад"
+        elif user_id == 652928171:
+            t_o = "ТО Север"
+        elif user_id == 785030820 or user_id == 1283252616:
             t_o = "ТО Юг"
 
         # answer = []
