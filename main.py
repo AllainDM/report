@@ -37,7 +37,7 @@ async def echo_mess(message: types.Message):
             t_o = "ТО Запад"
         elif user_id == 652928171:
             t_o = "ТО Север"
-        elif user_id == 785030820 or user_id == 1283252616:
+        elif user_id == 785030820 or user_id == 1283252616:  # 785030820
             t_o = "ТО Юг"
         command = message.get_full_command()[1]  # [1].split('.')
         print(command)
@@ -85,6 +85,7 @@ async def echo_mess(message: types.Message):
         # TODO лучше создать отдельную функцию
         if os.path.exists(f"files/{t_o}/{month_year}/{date_now_year}"):
             files = os.listdir(f"files/{t_o}/{month_year}/{date_now_year}")
+            print("Вызов функции report 1")
             rep_a, num_rep = report(files, date_now_year, t_o, month_year)
 
         search_master = message.text.split(" ")
@@ -101,6 +102,7 @@ async def echo_mess(message: types.Message):
                 # Выведем имена мастеров для сверки
                 rep_masters = "Остались отчеты: \n"
                 new_files = os.listdir(f"files/{t_o}/{month_year}/{date_now_year}")
+                print("Вызов функции report 2")
                 new_rep_a, new_num_rep = report(new_files, date_now_year, t_o, month_year)
                 for i in range(1, len(new_num_rep)):
                     rep_masters += f'{new_num_rep[i]} \n'
@@ -194,6 +196,7 @@ async def echo_mess(message: types.Message):
                         if os.path.exists(f"files/{t_o}/{month_year}/{month_folder}"):
                             files = os.listdir(f"files/{t_o}/{month_year}/{month_folder}")
                             # await bot.send_message(message.chat.id, f"Найдено {len(files)} файл(ов).")
+                            print("Вызов функции report_priv.")
                             rep_priv, dict_priv = report_priv(files, month_folder, t_o, month_year)
                             if len(rep_priv) > 0:
                                 await bot.send_message(message.chat.id,
@@ -229,7 +232,9 @@ async def echo_mess(message: types.Message):
                         files = os.listdir(f"files/{t_o}/{month_year}/{month_folder}")
                         await bot.send_message(message.chat.id, f"Найдено {len(files)} файл(ов).")
                         # report возвращает словарь со статистикой
+                        print("Вызов функции report 3")
                         rep_a, num_rep = report(files, month_folder, t_o, month_year)
+                        print("Функции report 3 выполнена")
                         await bot.send_message(message.chat.id, f"Посчитано {num_rep[0]} файл(ов).")
 
                         # Выведем имена мастеров для сверки
@@ -238,7 +243,10 @@ async def echo_mess(message: types.Message):
                             rep_masters += f'{num_rep[i]} \n'
                         await bot.send_message(message.chat.id, rep_masters)
 
-                        print(files)
+                        print(f"files {files}")
+                        # Для Юга мой ид: 976374565 ( 785030820 )
+                        # if user_id == 785030820 or user_id == 1283252616 or group_id == 1001828053187:
+
                         at_int = rep_a["at_int"]
                         at_int_pri = rep_a["at_int_pri"]
                         at_serv = rep_a["at_serv"]
@@ -256,19 +264,48 @@ async def echo_mess(message: types.Message):
                         et_serv = rep_a["et_serv"]
                         et_serv_tv = rep_a["et_serv_tv"]
 
-                        answer = (f"{t_o} {month_folder} \n\n"
-                                  f"ЭХ: интернет {at_int}({at_int_pri} прив), сервис {at_serv} \n"
-                                  f"Тиера: интернет {ti_int}({ti_int_pri} прив), сервис {ti_serv} \n"
-                                  f"ЕТ: интернет {et_int}({et_int_pri} прив), "
-                                  f"ТВ {et_tv}({et_tv_pri} прив), \n"
-                                  f"домофон {et_dom}({et_dom_pri} прив), "
-                                  f"сервис интернет {et_serv}, "
-                                  f"сервис ТВ {et_serv_tv} \n\n"
-                                  f"Итого: интернет {at_int + ti_int + et_int}({(at_int_pri + ti_int_pri + et_int_pri)}), "
-                                  f"ТВ {et_tv}({et_tv_pri}), "
-                                  f"домофон {et_dom}({et_dom_pri}), "
-                                  f"сервис {at_serv + ti_serv + et_serv}, "
-                                  f"сервис ТВ {et_serv_tv}")
+                        print("База подсчитана")
+
+                        # Для Юга мой ид: 976374565 ( 785030820 )
+                        if user_id == 785030820 or user_id == 1283252616 or group_id == 1001828053187:
+                            print("ТО Юг 222")
+                            print(rep_a)
+                            print(rep_a["at_int2"])
+                            at_int2 = rep_a["at_int2"]
+                            at_int_pri2 = rep_a["at_int_pri2"]
+                            at_serv2 = rep_a["at_serv2"]
+                            print("Колпино прочитано.")
+                            answer = (f"{t_o} {month_folder} \n\n"
+                                      f"ЭХК интернет {at_int2}({at_int_pri2} прив), сервис {at_serv2} \n"
+                                      f"ЭХМ: интернет {at_int}({at_int_pri} прив), сервис {at_serv} \n"
+                                      f"Тиера: интернет {ti_int}({ti_int_pri} прив), сервис {ti_serv} \n"
+                                      f"ЕТ: интернет {et_int}({et_int_pri} прив), "
+                                      f"ТВ {et_tv}({et_tv_pri} прив), \n"
+                                      f"домофон {et_dom}({et_dom_pri} прив), "
+                                      f"сервис интернет {et_serv}, "
+                                      f"сервис ТВ {et_serv_tv} \n\n"
+                                      f"Итого: интернет {at_int + ti_int + et_int}({(at_int_pri + ti_int_pri + et_int_pri)}), "
+                                      f"ТВ {et_tv}({et_tv_pri}), "
+                                      f"домофон {et_dom}({et_dom_pri}), "
+                                      f"сервис {at_serv + ti_serv + et_serv}, "
+                                      f"сервис ТВ {et_serv_tv}")
+                        else:
+                            print("Нормальные ТО")
+                            answer = (f"{t_o} {month_folder} \n\n"
+                                      f"ЭХ: интернет {at_int}({at_int_pri} прив), сервис {at_serv} \n"
+                                      f"Тиера: интернет {ti_int}({ti_int_pri} прив), сервис {ti_serv} \n"
+                                      f"ЕТ: интернет {et_int}({et_int_pri} прив), "
+                                      f"ТВ {et_tv}({et_tv_pri} прив), \n"
+                                      f"домофон {et_dom}({et_dom_pri} прив), "
+                                      f"сервис интернет {et_serv}, "
+                                      f"сервис ТВ {et_serv_tv} \n\n"
+                                      f"Итого: интернет {at_int + ti_int + et_int}({(at_int_pri + ti_int_pri + et_int_pri)}), "
+                                      f"ТВ {et_tv}({et_tv_pri}), "
+                                      f"домофон {et_dom}({et_dom_pri}), "
+                                      f"сервис {at_serv + ti_serv + et_serv}, "
+                                      f"сервис ТВ {et_serv_tv}")
+
+                        print("Ответ готов")
                         await bot.send_message(message.chat.id, answer)
 
                         await bot.send_message(message.chat.id, "Идет подготовка адресов, ожидайте файл.")
@@ -349,8 +386,8 @@ async def echo_mess(message: types.Message):
                 txt = pre_txt.split(":")
                 print(f"txt {txt}")
 
-                # Для Юга мой ид: ( 785030820 ) 976374565
-                # if user_id == 976374565 or user_id == 1283252616 or group_id == 1001828053187:
+                # Для Юга мой ид: 976374565 ( 785030820 )
+                # if user_id == 785030820 or user_id == 1283252616 or group_id == 1001828053187:
                 print(user_id)
                 # Строчка ЭтХоум
                 # TODO тут Лана или Невское для Юга
@@ -367,6 +404,7 @@ async def echo_mess(message: types.Message):
                 new_txt_at_list_with_space2 = new_txt_at2.split(" ")
 
                 new_txt_at_list2 = [i for i in new_txt_at_list_with_space2 if i]
+                print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
                 print(new_txt_at_list2)
 
                 # Сделаем перебор нового списка, где значения будем искать после ключевых слов
@@ -379,7 +417,8 @@ async def echo_mess(message: types.Message):
                             at_int2 = int(new_txt_at_list2.pop(num + 1))  # Следующее значение после "интернет"
                             print(at_int2)
                             if at_int2 < 100:  # Проверка на длину значения, защита от номера сервиса
-                                at_int_flag = 1  # Флаг для проверки правильности отчета
+                                at_int_flag2 = 1  # Флаг для проверки правильности отчета
+                                print("Флаг проверки правильности установлен: интернет Эх Колпино.")
                         except ValueError:
                             at_int2 = 0
                         print(new_txt_at_list2)
@@ -391,7 +430,8 @@ async def echo_mess(message: types.Message):
                             at_int_pri2 = int(new_txt_at_list2.pop(num - 1))  # Перед "прив"
                             print(at_int_pri2)
                             if at_int_pri2 < 100:  # Проверка на длину значения, защита от номера сервиса
-                                at_int_pri_flag = 1  # Флаг для проверки правильности отчета
+                                at_int_pri_flag2 = 1  # Флаг для проверки правильности отчета
+                                print("Флаг проверки правильности установлен: интернет прив Эх Колпино.")
                         except ValueError:
                             at_int_pri2 = 0
                         print(new_txt_at_list2)
@@ -403,7 +443,8 @@ async def echo_mess(message: types.Message):
                             at_serv2 = int(new_txt_at_list2.pop(num + 1))  # После "сервис"
                             print(at_serv2)
                             if at_serv2 < 100:  # Проверка на длину значения, защита от номера сервиса
-                                at_serv_flag = 1  # Флаг для проверки правильности отчета
+                                at_serv_flag2 = 1  # Флаг для проверки правильности отчета
+                                print("Флаг проверки правильности установлен: сервис Эх Колпино.")
                         except ValueError:
                             at_serv2 = 0
                         print(new_txt_at_list2)
@@ -435,6 +476,7 @@ async def echo_mess(message: types.Message):
                             print(at_int)
                             if at_int < 100:  # Проверка на длину значения, защита от номера сервиса
                                 at_int_flag = 1  # Флаг для проверки правильности отчета
+                                print("Флаг проверки правильности установлен: интернет Эх.")
                         except ValueError:
                             at_int = 0
                         print(new_txt_at_list)
@@ -447,6 +489,7 @@ async def echo_mess(message: types.Message):
                             print(at_int_pri)
                             if at_int_pri < 100:  # Проверка на длину значения, защита от номера сервиса
                                 at_int_pri_flag = 1  # Флаг для проверки правильности отчета
+                                print("Флаг проверки правильности установлен: интернет прив Эх.")
                         except ValueError:
                             at_int_pri = 0
                         print(new_txt_at_list)
@@ -459,6 +502,7 @@ async def echo_mess(message: types.Message):
                             print(at_serv)
                             if at_serv < 100:  # Проверка на длину значения, защита от номера сервиса
                                 at_serv_flag = 1  # Флаг для проверки правильности отчета
+                                print("Флаг проверки правильности установлен: сервис Эх.")
                         except ValueError:
                             at_serv = 0
                         print(new_txt_at_list)
@@ -743,7 +787,7 @@ async def echo_mess(message: types.Message):
                 # Но, если в начале сообщения есть фамилия, то возьмем ее.
                 txt_soname_pre = txt[0].replace("\n", " ")
                 txt_soname = txt_soname_pre.split(" ")
-                if txt_soname[0].lower() != 'эх':
+                if txt_soname[0][0:2].lower() != 'эх':
                     to_save["master"] = txt_soname[0].title()
 
                 if to_save["master"] == "не указан":
@@ -756,9 +800,17 @@ async def echo_mess(message: types.Message):
                 msg_err = []
                 # msg_err_txt = ""
 
+                # Для Юга мой ид: 976374565 ( 785030820 )
+                if user_id == 785030820 or user_id == 1283252616 or group_id == 1001828053187:
+                    if at_int_flag2 == 0:
+                        msg_err.append("ЭтХоум Колпино интернет. ")
+                    if at_int_pri_flag2 == 0:
+                        msg_err.append("ЭтХоум Колпино интернет. ")  # привлеченный
+                    if at_serv_flag2 == 0:
+                        msg_err.append("ЭтХоум Колпино сервис. ")
+
                 if at_int_flag == 0:
                     msg_err.append("ЭтХоум интернет. ")
-
                 if at_int_pri_flag == 0:
                     msg_err.append("ЭтХоум интернет. ")  # привлеченный
                 if at_serv_flag == 0:
@@ -805,7 +857,30 @@ async def echo_mess(message: types.Message):
 
                 # Так же создадим список для сохранения номеров ремонтов
                 list_repairs = []
-                # TODO еще нужны номера ремонтов для Ланы или Невского
+
+                # Для Юга мой ид: 976374565 ( 785030820 )
+                if user_id == 785030820 or user_id == 1283252616 or group_id == 1001828053187:
+                    # Запишем номера ремонтов в ЭтХоум Колино
+                    # Заменим скобки и перенос строки пробелами и разобьем на список
+                    repairs_txt_at2 = (txt[0].replace("(", " ").
+                                       replace(")", " ").
+                                       replace("\n", " ").
+                                       replace("#", " ").
+                                       replace("e", " ").        # Английская. Тут мастера могут записать етм
+                                       replace("е", " ").        # Русская
+                                       replace(";", " ").
+                                       replace(",", " ").
+                                       replace("\xa0", " ").
+                                       replace(".", " "))
+                    repairs_txt_at_list2 = repairs_txt_at2.split(" ")
+
+                    for i in repairs_txt_at_list2:
+                        if len(i) == 7 and i.isnumeric():
+                            print(f"i1 {i}")
+                            list_repairs.append(['ЭтХоум', i, to_save["master"]])
+                        # else:
+                        #     print(f"{i} не подходит")
+
                 # После получения мастера соберем список ремонтов
                 # Запишем номера ремонтов в ЭтХоум
                 # Заменим скобки и перенос строки пробелами и разобьем на список
@@ -879,19 +954,37 @@ async def echo_mess(message: types.Message):
                 with open(f'files/{t_o}/{month_year}/{date_now_year}/{to_save["master"]}.json', 'w') as outfile:
                     json.dump(to_save, outfile, sort_keys=False, ensure_ascii=False, indent=4, separators=(',', ': '))
 
-                answe1 = (f"{t_o} {date_now_no_year}. Мастер {to_save['master']} \n\n"
-                          f"ЭХ: интернет {at_int}({at_int_pri} прив), сервис {at_serv} \n" 
-                          f"Тиера: интернет {ti_int}({ti_int_pri} прив), сервис {ti_serv} \n" 
-                          f"ЕТ: интернет {et_int}({et_int_pri} прив), "
-                          f"ТВ {et_tv}({et_tv_pri} прив), \n"
-                          f"домофон {et_dom}({et_dom_pri} прив), "
-                          f"сервис интернет {et_serv}, "
-                          f"сервис ТВ {et_serv_tv} \n\n"
-                          f"Итого: интернет {at_int + ti_int + et_int}({(at_int_pri + ti_int_pri + et_int_pri)}), "
-                          f"ТВ {et_tv}({et_tv_pri}), "
-                          f"домофон {et_dom}({et_dom_pri}), "
-                          f"сервис {at_serv + ti_serv + et_serv}, "
-                          f"сервис ТВ {et_serv_tv}")
+                # Для Юга мой ид: 976374565 ( 785030820 )
+                if user_id == 785030820 or user_id == 1283252616 or group_id == 1001828053187:
+                    answe1 = (f"{t_o} {date_now_no_year}. Мастер {to_save['master']} \n\n"
+                              f"ЭХК интернет {at_int2}({at_int_pri2} прив), сервис {at_serv2} \n" 
+                              f"ЭХМ: интернет {at_int}({at_int_pri} прив), сервис {at_serv} \n"
+                              f"Тиера: интернет {ti_int}({ti_int_pri} прив), сервис {ti_serv} \n"
+                              f"ЕТ: интернет {et_int}({et_int_pri} прив), "
+                              f"ТВ {et_tv}({et_tv_pri} прив), \n"
+                              f"домофон {et_dom}({et_dom_pri} прив), "
+                              f"сервис интернет {et_serv}, "
+                              f"сервис ТВ {et_serv_tv} \n\n"
+                              f"Итого: интернет {at_int + ti_int + et_int}({(at_int_pri + ti_int_pri + et_int_pri)}), "
+                              f"ТВ {et_tv}({et_tv_pri}), "
+                              f"домофон {et_dom}({et_dom_pri}), "
+                              f"сервис {at_serv + ti_serv + et_serv}, "
+                              f"сервис ТВ {et_serv_tv}")
+
+                else:
+                    answe1 = (f"{t_o} {date_now_no_year}. Мастер {to_save['master']} \n\n"
+                              f"ЭХ: интернет {at_int}({at_int_pri} прив), сервис {at_serv} \n" 
+                              f"Тиера: интернет {ti_int}({ti_int_pri} прив), сервис {ti_serv} \n" 
+                              f"ЕТ: интернет {et_int}({et_int_pri} прив), "
+                              f"ТВ {et_tv}({et_tv_pri} прив), \n"
+                              f"домофон {et_dom}({et_dom_pri} прив), "
+                              f"сервис интернет {et_serv}, "
+                              f"сервис ТВ {et_serv_tv} \n\n"
+                              f"Итого: интернет {at_int + ti_int + et_int}({(at_int_pri + ti_int_pri + et_int_pri)}), "
+                              f"ТВ {et_tv}({et_tv_pri}), "
+                              f"домофон {et_dom}({et_dom_pri}), "
+                              f"сервис {at_serv + ti_serv + et_serv}, "
+                              f"сервис ТВ {et_serv_tv}")
 
                 print(answe1)
                 await bot.send_message(message.chat.id, f"{answe1}")
@@ -899,6 +992,7 @@ async def echo_mess(message: types.Message):
                 # TODO возможно лучше создать отдельную функцию
                 if os.path.exists(f"files/{t_o}/{month_year}/{date_now_year}"):
                     files = os.listdir(f"files/{t_o}/{month_year}/{date_now_year}")
+                    print("Вызов функции report 4")
                     rep_a, num_rep = report(files, date_now_year, t_o, month_year)
 
                     # Выведем имена мастеров для сверки
@@ -965,11 +1059,17 @@ def save_to_exel(list_to_exel, t_o, date, month_year):
 
 
 def report(files, date, t_o, month_year):
+    print(f"В фунцкию report передан {t_o}")
     if t_o == "ТО Юг":
+        print(t_o)
         to_save = {
             "at_int2": 0,
             "at_int_pri2": 0,
             "at_serv2": 0,
+
+            "at_int": 0,
+            "at_int_pri": 0,
+            "at_serv": 0,
 
             "ti_int": 0,
             "ti_int_pri": 0,
@@ -987,6 +1087,7 @@ def report(files, date, t_o, month_year):
             "msg_err_txt": []
         }
     else:
+        print(t_o)
         to_save = {
             "at_int": 0,
             "at_int_pri": 0,
@@ -1015,10 +1116,12 @@ def report(files, date, t_o, month_year):
         print(f"Попробуем наладить фильтр по названию файла {file[-4:]}")
         if file[-4:] == "json":
             with open(f'files/{t_o}/{month_year}/{date}/{file}', 'r', encoding='utf-8') as outfile:
+                print(f'files/{t_o}/{month_year}/{date}/{file}')
                 print(f"будем искать такой файл: {file}")
                 data = json.loads(outfile.read())
-                print(data)
+                print(f"data111: {data}")
                 if t_o == "ТО Юг":
+                    print("ТО Юг 333")
                     to_save["at_int2"] += data["at_int2"]
                     to_save["at_int_pri2"] += data["at_int_pri2"]
                     to_save["at_serv2"] += data["at_serv2"]
