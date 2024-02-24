@@ -284,10 +284,11 @@ async def echo_mess(message: types.Message):
                                       f"домофон {et_dom}({et_dom_pri} прив), "
                                       f"сервис интернет {et_serv}, "
                                       f"сервис ТВ {et_serv_tv} \n\n"
-                                      f"Итого: интернет {at_int + ti_int + et_int}({(at_int_pri + ti_int_pri + et_int_pri)}), "
+                                      f"Итого: интернет {at_int + at_int2 + ti_int + et_int}"
+                                      f"({(at_int_pri + at_int_pri2 + ti_int_pri + et_int_pri)}), "
                                       f"ТВ {et_tv}({et_tv_pri}), "
                                       f"домофон {et_dom}({et_dom_pri}), "
-                                      f"сервис {at_serv + ti_serv + et_serv}, "
+                                      f"сервис {at_serv + at_serv2 + ti_serv + et_serv}, "
                                       f"сервис ТВ {et_serv_tv}")
                         else:
                             print("Нормальные ТО")
@@ -965,10 +966,11 @@ async def echo_mess(message: types.Message):
                               f"домофон {et_dom}({et_dom_pri} прив), "
                               f"сервис интернет {et_serv}, "
                               f"сервис ТВ {et_serv_tv} \n\n"
-                              f"Итого: интернет {at_int + ti_int + et_int}({(at_int_pri + ti_int_pri + et_int_pri)}), "
+                              f"Итого: интернет {at_int + at_int2 + ti_int + et_int}"
+                              f"({(at_int_pri + at_int_pri2 + ti_int_pri + et_int_pri)}), "
                               f"ТВ {et_tv}({et_tv_pri}), "
                               f"домофон {et_dom}({et_dom_pri}), "
-                              f"сервис {at_serv + ti_serv + et_serv}, "
+                              f"сервис {at_serv + at_serv2 + ti_serv + et_serv}, "
                               f"сервис ТВ {et_serv_tv}")
 
                 else:
