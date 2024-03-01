@@ -176,6 +176,12 @@ async def echo_mess(message: types.Message):
                 print(date_ago)
                 date_now_year = date_ago.strftime("%d.%m.%Y")
                 month_year = date_ago.strftime("%m.%Y")
+            if message.text.lower() == "привлеченные":  # Для получения папки месяца привлеченных вычтем 8 дней
+                date_ago = date_ago - timedelta(8)
+                print(f"Новая дата: {date_ago}")
+                print(date_ago)
+                date_now_year = date_ago.strftime("%d.%m.%Y")
+                month_year = date_ago.strftime("%m.%Y")
             # Для получения отчета только авторизованный админ
             if user_id in config.users:
                 month_folders = []  # Папка или папки в которых ищем отчеты мастеров.
@@ -188,7 +194,7 @@ async def echo_mess(message: types.Message):
                 else:
                     month_folders = [date_now_year]  # Одна папка с текущей датой
                 print(f"month_folders: {month_folders}")
-                if message.text == "привлеченные":
+                if message.text.lower() == "привлеченные":
                     dict_all_priv = {}
 
                     print("Попробуем собрать привлеченных")
