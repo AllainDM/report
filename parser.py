@@ -130,6 +130,7 @@ def parser_address(start_address):
             address[3] == " Тельмана пос." or \
             address[3] == " Стрельна" or \
             address[3] == " пос. Стрельна" or \
+            address[3] == " Новогорелово пос." or \
             address[3] == " Новогорелово":
         street = address[4][1:-4]
         if address[4][-2] == 'ш':
