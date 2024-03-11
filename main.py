@@ -151,8 +151,8 @@ async def echo_mess(message: types.Message):
             t_o = "ТО Север"
         elif group_id == 1001828053187:
             t_o = "ТО Юг"
-        elif group_id == 461202541:
-            t_o = "ТО Юг"
+        elif group_id == 1002038540599:
+            t_o = "ТО Восток"
         elif user_id == 976374565 or user_id == 1240018773:
             t_o = "ТО Запад"
         elif user_id == 652928171:
