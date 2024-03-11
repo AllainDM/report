@@ -22,6 +22,8 @@ if not os.path.exists(f"files/ТО Север"):
     os.makedirs(f"files/ТО Север")
 if not os.path.exists(f"files/ТО Юг"):
     os.makedirs(f"files/ТО Юг")
+if not os.path.exists(f"files/ТО Восток"):
+    os.makedirs(f"files/ТО Восток")
 
 
 # Удаление папки
@@ -39,6 +41,8 @@ async def echo_mess(message: types.Message):
             t_o = "ТО Север"
         elif user_id == 785030820 or user_id == 1283252616:  # 785030820
             t_o = "ТО Юг"
+        elif user_id == 1095264388 or user_id == 444107729:  # 785030820
+            t_o = "ТО Восток"
         command = message.get_full_command()[1]  # [1].split('.')
         print(command)
         if len(command) == 18:
@@ -80,6 +84,8 @@ async def echo_mess(message: types.Message):
             t_o = "ТО Север"
         elif user_id == 785030820 or user_id == 1283252616:
             t_o = "ТО Юг"
+        elif user_id == 1095264388 or user_id == 444107729:  # 785030820
+            t_o = "ТО Восток"
 
         # Используем функцию подсчета файлов для вывода посчитанных мастеров
         # TODO лучше создать отдельную функцию
@@ -138,11 +144,14 @@ async def echo_mess(message: types.Message):
     t_o = ""
     if user_id in config.users or group_id in config.groups:
         # Определим ТО по ид юзера в телеграм 1240018773
+        # Приоритет группы потом юзеры?
         if group_id == 4066612012:
             t_o = "ТО Запад"
         elif group_id == 1001534981751:
             t_o = "ТО Север"
         elif group_id == 1001828053187:
+            t_o = "ТО Юг"
+        elif group_id == 461202541:
             t_o = "ТО Юг"
         elif user_id == 976374565 or user_id == 1240018773:
             t_o = "ТО Запад"
@@ -150,6 +159,8 @@ async def echo_mess(message: types.Message):
             t_o = "ТО Север"
         elif user_id == 785030820 or user_id == 1283252616:
             t_o = "ТО Юг"
+        elif user_id == 1095264388 or user_id == 444107729:  # 785030820
+            t_o = "ТО Восток"
 
         # answer = []
         date_now = datetime.now()
@@ -273,7 +284,8 @@ async def echo_mess(message: types.Message):
                         print("База подсчитана")
 
                         # Для Юга мой ид: 976374565 ( 785030820 )
-                        if user_id == 785030820 or user_id == 1283252616 or group_id == 1001828053187:
+                        if (user_id == 785030820 or user_id == 1283252616 or group_id == 1001828053187
+                                or group_id == 461202541):
                             print("ТО Юг 222")
                             print(rep_a)
                             print(rep_a["at_int2"])
@@ -685,7 +697,7 @@ async def echo_mess(message: types.Message):
                                 et_dom_pri = 0
 
                 # Для Юга мой ид: 976374565 ( 785030820 )
-                if user_id == 785030820 or user_id == 1283252616 or group_id == 1001828053187:
+                if user_id == 785030820 or user_id == 1283252616 or group_id == 1001828053187 or group_id == 461202541:
                     print(user_id)
                     to_save = {
                         "at_int2": at_int2,
@@ -808,7 +820,7 @@ async def echo_mess(message: types.Message):
                 # msg_err_txt = ""
 
                 # Для Юга мой ид: 976374565 ( 785030820 )
-                if user_id == 785030820 or user_id == 1283252616 or group_id == 1001828053187:
+                if user_id == 785030820 or user_id == 1283252616 or group_id == 1001828053187 or group_id == 461202541:
                     if at_int_flag2 == 0:
                         msg_err.append("ЭтХоум Колпино интернет. ")
                     if at_int_pri_flag2 == 0:
@@ -866,7 +878,7 @@ async def echo_mess(message: types.Message):
                 list_repairs = []
 
                 # Для Юга мой ид: 976374565 ( 785030820 )
-                if user_id == 785030820 or user_id == 1283252616 or group_id == 1001828053187:
+                if user_id == 785030820 or user_id == 1283252616 or group_id == 1001828053187 or group_id == 461202541:
                     # Запишем номера ремонтов в ЭтХоум Колино
                     # Заменим скобки и перенос строки пробелами и разобьем на список
                     repairs_txt_at2 = (txt[0].replace("(", " ").
@@ -962,7 +974,7 @@ async def echo_mess(message: types.Message):
                     json.dump(to_save, outfile, sort_keys=False, ensure_ascii=False, indent=4, separators=(',', ': '))
 
                 # Для Юга мой ид: 976374565 ( 785030820 )
-                if user_id == 785030820 or user_id == 1283252616 or group_id == 1001828053187:
+                if user_id == 785030820 or user_id == 1283252616 or group_id == 1001828053187 or group_id == 461202541:
                     answe1 = (f"{t_o} {date_now_no_year}. Мастер {to_save['master']} \n\n"
                               f"ЭХК интернет {at_int2}({at_int_pri2} прив), сервис {at_serv2} \n" 
                               f"ЭХМ: интернет {at_int}({at_int_pri} прив), сервис {at_serv} \n"
