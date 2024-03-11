@@ -807,7 +807,11 @@ async def echo_mess(message: types.Message):
                 txt_soname_pre = txt[0].replace("\n", " ")
                 txt_soname = txt_soname_pre.split(" ")
                 if txt_soname[0][0:2].lower() != 'эх':
-                    to_save["master"] = txt_soname[0].title()
+                    if txt_soname[0][0:2].lower() == "то":
+                        await message.reply("Необходимо указать фамилию мастера, отчет не сохранен.")
+                        return
+                    else:
+                        to_save["master"] = txt_soname[0].title()
 
                 if to_save["master"] == "не указан":
                     # await bot.send_message(message.chat.id, "Необходимо указать фамилию мастера, отчет не сохранен.")

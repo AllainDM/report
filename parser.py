@@ -55,17 +55,18 @@ def get_address(list_service_masters):
                 print("Код ответа 200")
                 # soup = BeautifulSoup(html.text, 'lxml')
                 soup = BeautifulSoup(html.text, 'html.parser')
-            #     # # print(f"soup {soup}")
+                # print(f"soup {soup}")
                 table = soup.find('table', class_="j_table")
-                # Так же сразу найдем тип задания.
-                table_type_task = soup.find(class_="label_h2")
-                table_type_task_span = table_type_task.find('span')
-                print(f"Тут может быть таск: {table_type_task_span.text}")
-
+                # print(f"table {table}")
                 if table is None:
-                    v.append([" ", " ", " ", "!!! Внимание, возможно не верный номер сервиса."])
+                    v.append([" ", " ", " ", " "])
+                    v.append("!!! Внимание, возможно не верный номер сервиса.")
                     print("!!! Внимание, возможно не верный номер сервиса.")
                 else:
+                    # Так же сразу найдем тип задания. Главная страница - UserSide
+                    table_type_task = soup.find(class_="label_h2")
+                    table_type_task_span = table_type_task.find('span')
+                    print(f"Тут может быть таск: {table_type_task_span.text}")
                     table_a = table.find_all('a')
                     print("Парсим ссылки")
                     print(table_a)
@@ -76,15 +77,17 @@ def get_address(list_service_masters):
                                 answer_parser_address = parser_address(i.text)
                                 v.append(answer_parser_address)
                                 print(answer_parser_address)
+                                # Так же в любом случае добавляем полученный тип задания.
+                                v.append(table_type_task_span.text)
                         if answer_parser_address == "":
                             print("Адрес не найден")
-                            v.append(["! Возможно не верный номер сервиса.", "", "", ""])
+                            v.append([" ", " ", " ", " "])
+                            v.append("!!! Внимание, возможно не верный номер сервиса.")
                             print("!!! Внимание, возможно не верный номер сервиса.")
                     else:
-                        v.append(["-", "-", "-", "!!! Внимание, возможно не верный номер сервиса."])
+                        v.append([" ", " ", " ", " "])
+                        v.append("!!! Внимание, возможно не верный номер сервиса.")
                         print("!!! Внимание, возможно не верный номер сервиса.")
-                # Так же в любом случае добавляем полученный тип задания.
-                v.append(table_type_task_span.text)
                 print("###############################################################################################")
                 print("###############################################################################################")
             else:
