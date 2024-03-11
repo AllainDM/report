@@ -891,6 +891,14 @@ async def echo_mess(message: types.Message):
                                        replace("#", " ").
                                        replace("e", " ").        # Английская. Тут мастера могут записать етм
                                        replace("е", " ").        # Русская
+
+                                       # Для обозначения актовых и без актовых
+                                       replace("a", " ").        # Английская
+                                       replace("а", " ").        # Русская
+                                       replace("б", " ").        # Русская
+                                       replace("t", " ").        # Английская
+                                       replace("т", " ").        # Русская
+
                                        replace(";", " ").
                                        replace(",", " ").
                                        replace("\xa0", " ").
@@ -913,6 +921,14 @@ async def echo_mess(message: types.Message):
                                   replace("#", " ").
                                   replace("e", " ").        # Английская. Тут мастера могут записать етм
                                   replace("е", " ").        # Русская
+
+                                  # Для обозначения актовых и без актовых
+                                  replace("a", " ").        # Английская
+                                  replace("а", " ").        # Русская
+                                  replace("б", " ").        # Русская
+                                  replace("t", " ").        # Английская
+                                  replace("т", " ").        # Русская
+
                                   replace(";", " ").
                                   replace(",", " ").
                                   replace("\xa0", " ").
@@ -934,6 +950,14 @@ async def echo_mess(message: types.Message):
                                   replace("#", " ").
                                   replace("e", " ").        # Английская. Тут мастера могут записать етм
                                   replace("е", " ").        # Русская
+
+                                  # Для обозначения актовых и без актовых
+                                  replace("a", " ").        # Английская
+                                  replace("а", " ").        # Русская
+                                  replace("б", " ").        # Русская
+                                  replace("t", " ").        # Английская
+                                  replace("т", " ").        # Русская
+
                                   replace(";", " ").
                                   replace(",", " ").
                                   replace("\xa0", " ").
@@ -955,6 +979,14 @@ async def echo_mess(message: types.Message):
                                   replace("#", " ").
                                   replace("e", " ").        # Английская. Тут мастера могут записать етм
                                   replace("е", " ").        # Русская
+
+                                  # Для обозначения актовых и без актовых
+                                  replace("a", " ").        # Английская
+                                  replace("а", " ").        # Русская
+                                  replace("б", " ").        # Русская
+                                  replace("t", " ").        # Английская
+                                  replace("т", " ").        # Русская
+
                                   replace(";", " ").
                                   replace(",", " ").
                                   replace("\xa0", " ").
