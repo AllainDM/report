@@ -41,7 +41,7 @@ async def echo_mess(message: types.Message):
             t_o = "ТО Север"
         elif user_id == 785030820 or user_id == 1283252616:  # 785030820
             t_o = "ТО Юг"
-        elif user_id == 1095264388 or user_id == 444107729:  # 785030820
+        elif user_id == 1095264388 or user_id == 444107729:
             t_o = "ТО Восток"
         command = message.get_full_command()[1]  # [1].split('.')
         print(command)
@@ -284,8 +284,7 @@ async def echo_mess(message: types.Message):
                         print("База подсчитана")
 
                         # Для Юга мой ид: 976374565 ( 785030820 )
-                        if (user_id == 785030820 or user_id == 1283252616 or group_id == 1001828053187
-                                or group_id == 461202541):
+                        if user_id == 785030820 or user_id == 1283252616 or group_id == 1001828053187:
                             print("ТО Юг 222")
                             print(rep_a)
                             print(rep_a["at_int2"])
@@ -824,7 +823,7 @@ async def echo_mess(message: types.Message):
                 # msg_err_txt = ""
 
                 # Для Юга мой ид: 976374565 ( 785030820 )
-                if user_id == 785030820 or user_id == 1283252616 or group_id == 1001828053187 or group_id == 461202541:
+                if user_id == 785030820 or user_id == 1283252616 or group_id == 1001828053187:
                     if at_int_flag2 == 0:
                         msg_err.append("ЭтХоум Колпино интернет. ")
                     if at_int_pri_flag2 == 0:
@@ -882,7 +881,7 @@ async def echo_mess(message: types.Message):
                 list_repairs = []
 
                 # Для Юга мой ид: 976374565 ( 785030820 )
-                if user_id == 785030820 or user_id == 1283252616 or group_id == 1001828053187 or group_id == 461202541:
+                if user_id == 785030820 or user_id == 1283252616 or group_id == 1001828053187:
                     # Запишем номера ремонтов в ЭтХоум Колино
                     # Заменим скобки и перенос строки пробелами и разобьем на список
                     repairs_txt_at2 = (txt[0].replace("(", " ").
