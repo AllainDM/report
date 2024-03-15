@@ -899,6 +899,7 @@ async def echo_mess(message: types.Message):
                                        replace("т", " ").        # Русская
 
                                        replace(";", " ").
+                                       replace("-", " ").
                                        replace(",", " ").
                                        replace("\xa0", " ").
                                        replace(".", " "))
@@ -929,6 +930,7 @@ async def echo_mess(message: types.Message):
                                   replace("т", " ").        # Русская
 
                                   replace(";", " ").
+                                  replace("-", " ").
                                   replace(",", " ").
                                   replace("\xa0", " ").
                                   replace(".", " "))
@@ -958,6 +960,7 @@ async def echo_mess(message: types.Message):
                                   replace("т", " ").        # Русская
 
                                   replace(";", " ").
+                                  replace("-", " ").
                                   replace(",", " ").
                                   replace("\xa0", " ").
                                   replace(".", " "))
@@ -987,6 +990,7 @@ async def echo_mess(message: types.Message):
                                   replace("т", " ").        # Русская
 
                                   replace(";", " ").
+                                  replace("-", " ").
                                   replace(",", " ").
                                   replace("\xa0", " ").
                                   replace(".", " "))
