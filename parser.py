@@ -41,6 +41,7 @@ response_users = create_users_sessions()
 def get_address(list_service_masters):
     print(f'list_service_masters {list_service_masters["list_repairs"]}')
     list_repairs = list_service_masters["list_repairs"]
+    id_ls = {"user_id": "111", "user_ls": "222"}
     for v in list_repairs:
         print(f"v: {v}")
         service = v[1]
@@ -76,14 +77,28 @@ def get_address(list_service_masters):
                             if 'Россия' in i.text:
                                 answer_parser_address = parser_address(i.text)
                                 v.append(answer_parser_address)
-                                print(answer_parser_address)
+                                print(f"answer_parser_address: {answer_parser_address}")
                                 # Так же в любом случае добавляем полученный тип задания.
                                 v.append(table_type_task_span.text)
+
                         if answer_parser_address == "":
                             print("Адрес не найден")
                             v.append([" ", " ", " ", " "])
                             v.append("!!! Внимание, возможно не верный номер сервиса.")
                             print("!!! Внимание, возможно не верный номер сервиса.")
+                        # Еще раз отдельный цикл по ссылкам уже в поиске ид и лс
+                        for tab_test in table_a:
+                            # print(f"тест ссылок: {tab_test}")
+                            print(f"тест ссылок текст: {tab_test.text}")
+                            test_a = tab_test.text.split(" ")
+                            print(f"test_a: {test_a}")
+                            for num, el in enumerate(test_a):
+                                if el == "ID:":
+                                    id_ls["user_id"] = test_a[num+1]
+                                    print(f"Найден ид юзера: {id_ls['user_id']}")
+                                if el == "-":
+                                    id_ls["user_ls"] = test_a[num+1]
+                                    print(f"Найден лс юзера: {id_ls['user_ls']}")
                     else:
                         v.append([" ", " ", " ", " "])
                         v.append("!!! Внимание, возможно не верный номер сервиса.")
@@ -94,7 +109,7 @@ def get_address(list_service_masters):
                 print("error")
         except requests.exceptions.TooManyRedirects as e:
             print(f'{link} : {e}')
-    return list_repairs
+    return list_repairs, id_ls
 
 
 def parser_address(start_address):
@@ -172,7 +187,7 @@ def parser_address(start_address):
     if russia_count > 1:
         count_r = 0
         for num, el in enumerate(russia):
-            print(f"el: {el}")
+            # print(f"el: {el}")
             if el == "Россия" and count_r == 1:
                 print(f"Найдено второе совпадение, номер элемента: {num}")
                 address_dom = russia[num - 2]

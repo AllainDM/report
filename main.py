@@ -217,6 +217,7 @@ async def echo_mess(message: types.Message):
                             print("Вызов функции report_priv.")
                             rep_priv, dict_priv = report_priv(files, month_folder, t_o, month_year)
                             if len(rep_priv) > 0:
+                                time.sleep(config.delay_msg_to_tg)
                                 await bot.send_message(message.chat.id,
                                                        f"Привлеченные за {month_folder} \n {rep_priv}")
                                 # await bot.send_message(message.chat.id, f"Привлеченные за {month_folder} \n {dict_priv}")
@@ -329,11 +330,12 @@ async def echo_mess(message: types.Message):
 
                         await bot.send_message(message.chat.id, "Идет подготовка адресов, ожидайте файл.")
 
-                        parser_answer = parser.get_address(rep_a)
+                        # Второму значению присвоим обьект с доп данными
+                        parser_answer, id_ls = parser.get_address(rep_a)
                         print(f"parser_answer {parser_answer}")
 
                         # Сохраним ексель файл с номерами ремонтов
-                        save_to_exel(parser_answer, t_o, month_folder, month_year)
+                        save_to_exel(parser_answer, t_o, month_folder, month_year, id_ls)
                         # Попробуем отправить файл
                         exel = open(f"files/{t_o}/{month_year}/{month_folder}.xls", "rb")
                         await bot.send_document(message.chat.id, exel)
@@ -1072,7 +1074,7 @@ async def echo_mess(message: types.Message):
         print(f"user_id {user_id}")
 
 
-def save_to_exel(list_to_exel, t_o, date, month_year):
+def save_to_exel(list_to_exel, t_o, date, month_year, id_ls):
     print("Запуск функции сохранения в ексель файл.")
     wb = xlwt.Workbook()
     ws = wb.add_sheet(date)
@@ -1083,12 +1085,14 @@ def save_to_exel(list_to_exel, t_o, date, month_year):
         print(f"{n}: {v}")
         ws.write(n, 0, v[0])  # Бренд
         ws.write(n, 1, date)  # Дата
+        ws.write(n, 2, id_ls["user_ls"])  # ЛС
         ws.write(n, 3, v[1])  # Номер
         ws.write(n, 7, v[2])  # Мастер
         ws.write(n, 4, v[3][0])  # Улица
         ws.write(n, 5, v[3][1])  # Дом
         ws.write(n, 6, v[3][2])  # Квартира
         ws.write(n, 9, v[4])  # Тип задания
+        ws.write(n, 13, id_ls["user_id"])  # Тип задания
         ws.write(n, 26, v[3][3])  # Полный адрес
         ws.write(n, 17, f"=ГИПЕРССЫЛКА(CONCAT($Y$2;D{n+1});D{n+1})")  # Ссылка
         # Добавим в json для файлика отчета
