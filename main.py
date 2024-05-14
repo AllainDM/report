@@ -36,9 +36,9 @@ async def echo_mess(message: types.Message):
     t_o = ""
     if user_id in config.users:
         # Определим ТО по ид юзера в телеграм
-        if user_id == 976374565 or user_id == 1240018773:
+        if user_id == 976374565 or user_id == 1241715706:
             t_o = "ТО Запад"
-        elif user_id == 652928171:
+        elif user_id == 652928171 or user_id == 390285529:
             t_o = "ТО Север"
         elif user_id == 785030820 or user_id == 1283252616:  # 785030820
             t_o = "ТО Юг"
@@ -79,9 +79,9 @@ async def echo_mess(message: types.Message):
     month_year = date_ago.strftime("%m.%Y")
     if user_id in config.users:
         # Определим ТО по ид юзера в телеграм
-        if user_id == 976374565 or user_id == 1240018773:
+        if user_id == 976374565 or user_id == 1241715706:
             t_o = "ТО Запад"
-        elif user_id == 652928171:
+        elif user_id == 652928171 or user_id == 390285529:
             t_o = "ТО Север"
         elif user_id == 785030820 or user_id == 1283252616:
             t_o = "ТО Юг"
@@ -154,9 +154,9 @@ async def echo_mess(message: types.Message):
             t_o = "ТО Юг"
         elif group_id == 1002038540599:
             t_o = "ТО Восток"
-        elif user_id == 976374565 or user_id == 1240018773:
+        elif user_id == 976374565 or user_id == 1241715706:
             t_o = "ТО Запад"
-        elif user_id == 652928171:
+        elif user_id == 652928171 or user_id == 390285529:
             t_o = "ТО Север"
         elif user_id == 785030820 or user_id == 1283252616:
             t_o = "ТО Юг"
