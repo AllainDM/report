@@ -39,6 +39,8 @@ response_users = create_users_sessions()
 
 # TODO необходимо будет сделать одну функция под множество запросов
 def get_address(list_service_masters):
+    print("Что у нас в аргументе")
+    print(list_service_masters)
     print(f'list_service_masters {list_service_masters["list_repairs"]}')
     list_repairs = list_service_masters["list_repairs"]
     id_ls = {"user_id": "111", "user_ls": "222"}
@@ -87,6 +89,12 @@ def get_address(list_service_masters):
                             v.append("!!! Внимание, возможно не верный номер сервиса.")
                             print("!!! Внимание, возможно не верный номер сервиса.")
                         # Еще раз отдельный цикл по ссылкам уже в поиске ид и лс
+                        print("Запишем индексы для ИД и ЛС.")
+                        # v.append({"id": " "})  # ID
+                        # v.append({"ls": " "})  # ЛС
+                        user_id = " "
+                        user_ls = " "
+                        print("Записали индексы для ИД и ЛС.")
                         for tab_test in table_a:
                             # print(f"тест ссылок: {tab_test}")
                             print(f"тест ссылок текст: {tab_test.text}")
@@ -94,11 +102,18 @@ def get_address(list_service_masters):
                             print(f"test_a: {test_a}")
                             for num, el in enumerate(test_a):
                                 if el == "ID:":
+                                    user_id = test_a[num+1]
                                     id_ls["user_id"] = test_a[num+1]
                                     print(f"Найден ид юзера: {id_ls['user_id']}")
                                 if el == "-":
+                                    user_ls = test_a[num+1]
                                     id_ls["user_ls"] = test_a[num+1]
                                     print(f"Найден лс юзера: {id_ls['user_ls']}")
+                        print("Таблица проверена.")
+
+                        v.append(user_ls)
+                        v.append(user_id)
+
                     else:
                         v.append([" ", " ", " ", " "])
                         v.append("!!! Внимание, возможно не верный номер сервиса.")

@@ -1085,14 +1085,14 @@ def save_to_exel(list_to_exel, t_o, date, month_year, id_ls):
         print(f"{n}: {v}")
         ws.write(n, 0, v[0])  # Бренд
         ws.write(n, 1, date)  # Дата
-        ws.write(n, 2, id_ls["user_ls"])  # ЛС
+        ws.write(n, 2, v[5])  # ЛС. Под 5 индексом должны быть ИД и ЛС
         ws.write(n, 3, v[1])  # Номер
         ws.write(n, 7, v[2])  # Мастер
         ws.write(n, 4, v[3][0])  # Улица
         ws.write(n, 5, v[3][1])  # Дом
         ws.write(n, 6, v[3][2])  # Квартира
+        ws.write(n, 8, v[6])  # ИД
         ws.write(n, 9, v[4])  # Тип задания
-        ws.write(n, 13, id_ls["user_id"])  # Тип задания
         ws.write(n, 26, v[3][3])  # Полный адрес
         ws.write(n, 17, f"=ГИПЕРССЫЛКА(CONCAT($Y$2;D{n+1});D{n+1})")  # Ссылка
         # Добавим в json для файлика отчета
