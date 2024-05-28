@@ -1094,7 +1094,7 @@ def save_to_exel(list_to_exel, t_o, date, month_year, id_ls):
         ws.write(n+1, 8, v[6])  # ИД
         ws.write(n+1, 9, v[4])  # Тип задания
         ws.write(n+1, 26, v[3][3])  # Полный адрес
-        ws.write(n+1, 17, f"=ГИПЕРССЫЛКА(CONCAT($Y$2;D{n+1});D{n+1})")  # Ссылка
+        ws.write(n+1, 17, f"=ГИПЕРССЫЛКА(CONCAT($Y$2;D{n+2});D{n+2})")  # Ссылка
         # Добавим в json для файлика отчета
         list_repairs_for_json[1].append(
             {"brand": v[0],  # Бренд
