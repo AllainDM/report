@@ -38,7 +38,7 @@ async def echo_mess(message: types.Message):
         # Определим ТО по ид юзера в телеграм
         if user_id == 976374565 or user_id == 1241715706:
             t_o = "ТО Запад"
-        elif user_id == 652928171 or user_id == 390285529:
+        elif user_id == 652928171 or user_id == 390285529 or user_id == 536641054:
             t_o = "ТО Север"
         elif user_id == 785030820 or user_id == 1283252616:  # 785030820
             t_o = "ТО Юг"
@@ -81,7 +81,7 @@ async def echo_mess(message: types.Message):
         # Определим ТО по ид юзера в телеграм
         if user_id == 976374565 or user_id == 1241715706:
             t_o = "ТО Запад"
-        elif user_id == 652928171 or user_id == 390285529:
+        elif user_id == 652928171 or user_id == 390285529 or user_id == 536641054:
             t_o = "ТО Север"
         elif user_id == 785030820 or user_id == 1283252616:
             t_o = "ТО Юг"
@@ -156,7 +156,7 @@ async def echo_mess(message: types.Message):
             t_o = "ТО Восток"
         elif user_id == 976374565 or user_id == 1241715706:
             t_o = "ТО Запад"
-        elif user_id == 652928171 or user_id == 390285529:
+        elif user_id == 652928171 or user_id == 390285529 or user_id == 536641054:
             t_o = "ТО Север"
         elif user_id == 785030820 or user_id == 1283252616:
             t_o = "ТО Юг"
