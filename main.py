@@ -294,9 +294,11 @@ async def echo_mess(message: types.Message):
                             at_int_pri2 = rep_a["at_int_pri2"]
                             at_serv2 = rep_a["at_serv2"]
                             print("Колпино прочитано.")
+                            # Убираю привлечнных как по брендам так и из итогового подсчета
+                            # Из итогового, если мастера продолжат указывать
                             answer = (f"{t_o} {month_folder} \n\n"
-                                      f"ЭХК интернет {at_int2}({at_int_pri2} прив), сервис {at_serv2} \n"
-                                      f"ЭХМ: интернет {at_int}({at_int_pri} прив), сервис {at_serv} \n"
+                                      f"ЭХК интернет {at_int2}, сервис {at_serv2} \n"
+                                      f"ЭХМ: интернет {at_int}, сервис {at_serv} \n"
                                       f"Тиера: интернет {ti_int}({ti_int_pri} прив), сервис {ti_serv} \n"
                                       f"ЕТ: интернет {et_int}({et_int_pri} прив), "
                                       f"ТВ {et_tv}({et_tv_pri} прив), \n"
@@ -304,7 +306,7 @@ async def echo_mess(message: types.Message):
                                       f"сервис интернет {et_serv}, "
                                       f"сервис ТВ {et_serv_tv} \n\n"
                                       f"Итого: интернет {at_int + at_int2 + ti_int + et_int}"
-                                      f"({(at_int_pri + at_int_pri2 + ti_int_pri + et_int_pri)}), "
+                                      f"({(ti_int_pri + et_int_pri)}), "
                                       f"ТВ {et_tv}({et_tv_pri}), "
                                       f"домофон {et_dom}({et_dom_pri}), "
                                       f"сервис {at_serv + at_serv2 + ti_serv + et_serv}, "
@@ -312,14 +314,14 @@ async def echo_mess(message: types.Message):
                         else:
                             print("Нормальные ТО")
                             answer = (f"{t_o} {month_folder} \n\n"
-                                      f"ЭХ: интернет {at_int}({at_int_pri} прив), сервис {at_serv} \n"
+                                      f"ЭХ: интернет {at_int}, сервис {at_serv} \n"
                                       f"Тиера: интернет {ti_int}({ti_int_pri} прив), сервис {ti_serv} \n"
                                       f"ЕТ: интернет {et_int}({et_int_pri} прив), "
                                       f"ТВ {et_tv}({et_tv_pri} прив), \n"
                                       f"домофон {et_dom}({et_dom_pri} прив), "
                                       f"сервис интернет {et_serv}, "
                                       f"сервис ТВ {et_serv_tv} \n\n"
-                                      f"Итого: интернет {at_int + ti_int + et_int}({(at_int_pri + ti_int_pri + et_int_pri)}), "
+                                      f"Итого: интернет {at_int + ti_int + et_int}({(ti_int_pri + et_int_pri)}), "
                                       f"ТВ {et_tv}({et_tv_pri}), "
                                       f"домофон {et_dom}({et_dom_pri}), "
                                       f"сервис {at_serv + ti_serv + et_serv}, "
