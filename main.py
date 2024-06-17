@@ -134,8 +134,17 @@ async def echo_mess(message: types.Message):
         await bot.send_message(message.chat.id, "Неа")
 
 
+# @dp.message_handler(is_forwarded=True)
+# async def handle_forwarded_message(message: types.Message):
+#     text = message.reply_to_message.text
+#     await bot.send_message(message.chat.id, message.reply_to_message.text)
+#     print(f"forwarded: {text}")
+
+
 @dp.message_handler()
 async def echo_mess(message: types.Message):
+    # text = message.reply_to_message.text
+    # print(f"forwarded: {text}")
     # Получим ид пользователя и сравним со списком разрешенных в файле конфига
     user_id = message.from_user.id
     group_id = message.chat.id
@@ -831,15 +840,15 @@ async def echo_mess(message: types.Message):
                 if user_id == 785030820 or user_id == 1283252616 or group_id == 1001828053187:
                     if at_int_flag2 == 0:
                         msg_err.append("ЭтХоум Колпино интернет. ")
-                    if at_int_pri_flag2 == 0:
-                        msg_err.append("ЭтХоум Колпино интернет. ")  # привлеченный
+                    # if at_int_pri_flag2 == 0:
+                    #     msg_err.append("ЭтХоум Колпино интернет. ")  # привлеченный
                     if at_serv_flag2 == 0:
                         msg_err.append("ЭтХоум Колпино сервис. ")
 
                 if at_int_flag == 0:
                     msg_err.append("ЭтХоум интернет. ")
-                if at_int_pri_flag == 0:
-                    msg_err.append("ЭтХоум интернет. ")  # привлеченный
+                # if at_int_pri_flag == 0:
+                #     msg_err.append("ЭтХоум интернет. ")  # привлеченный
                 if at_serv_flag == 0:
                     msg_err.append("ЭтХоум сервис. ")
 
