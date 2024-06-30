@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 import config
 
 url_login = "http://us.gblnet.net/oper/"
+# url_login = "https://dev-us.gblnet.net/"
 
 HEADERS = {
     "main": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:105.0) Gecko/20100101 Firefox/105.0"
@@ -48,6 +49,7 @@ def get_address(list_service_masters):
         print(f"v: {v}")
         service = v[1]
         link = f"https://us.gblnet.net/oper/?core_section=task&action=show&id={service}"
+        # link = f"https://dev-us.gblnet.net/task/{service}"
         print("link 111")
         print(link)
         time.sleep(config.delay)  # Небольшая задержка
@@ -58,7 +60,7 @@ def get_address(list_service_masters):
                 print("Код ответа 200")
                 # soup = BeautifulSoup(html.text, 'lxml')
                 soup = BeautifulSoup(html.text, 'html.parser')
-                # print(f"soup {soup}")
+                print(f"soup {soup}")
                 table = soup.find('table', class_="j_table")
                 # print(f"table {table}")
                 if table is None:

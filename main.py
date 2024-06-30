@@ -191,16 +191,32 @@ async def echo_mess(message: types.Message):
                 print(date_ago)
                 date_now_year = date_ago.strftime("%d.%m.%Y")
                 month_year = date_ago.strftime("%m.%Y")
-            if message.text == "3":
+            elif message.text == "3":
                 date_ago = date_ago - timedelta(2)
-                print(f"Новая дата: {date_ago}")
-                print(date_ago)
                 date_now_year = date_ago.strftime("%d.%m.%Y")
                 month_year = date_ago.strftime("%m.%Y")
-            if message.text.lower() == "привлеченные":  # Для получения папки месяца привлеченных вычтем 8 дней
+            elif message.text == "4":
+                date_ago = date_ago - timedelta(3)
+                date_now_year = date_ago.strftime("%d.%m.%Y")
+                month_year = date_ago.strftime("%m.%Y")
+            elif message.text == "5":
+                date_ago = date_ago - timedelta(4)
+                date_now_year = date_ago.strftime("%d.%m.%Y")
+                month_year = date_ago.strftime("%m.%Y")
+            elif message.text == "6":
+                date_ago = date_ago - timedelta(5)
+                date_now_year = date_ago.strftime("%d.%m.%Y")
+                month_year = date_ago.strftime("%m.%Y")
+            elif message.text == "7":
+                date_ago = date_ago - timedelta(6)
+                date_now_year = date_ago.strftime("%d.%m.%Y")
+                month_year = date_ago.strftime("%m.%Y")
+            elif message.text == "8":
+                date_ago = date_ago - timedelta(7)
+                date_now_year = date_ago.strftime("%d.%m.%Y")
+                month_year = date_ago.strftime("%m.%Y")
+            elif message.text.lower() == "привлеченные":  # Для получения папки месяца привлеченных вычтем 8 дней
                 date_ago = date_ago - timedelta(8)
-                print(f"Новая дата: {date_ago}")
-                print(date_ago)
                 date_now_year = date_ago.strftime("%d.%m.%Y")
                 month_year = date_ago.strftime("%m.%Y")
             # Для получения отчета только авторизованный админ
