@@ -321,8 +321,8 @@ async def echo_mess(message: types.Message):
                             # Убираю привлечнных как по брендам так и из итогового подсчета
                             # Из итогового, если мастера продолжат указывать
                             answer = (f"{t_o} {month_folder} \n\n"
-                                      f"ЭХК интернет {at_int2}, сервис {at_serv2} \n"
-                                      f"ЭХМ: интернет {at_int}, сервис {at_serv} \n"
+                                      f"ЭХК интернет {at_int2}({at_int_pri2} прив), сервис {at_serv2} \n" 
+                                      f"ЭХМ: интернет {at_int}({at_int_pri} прив), сервис {at_serv} \n"
                                       f"Тиера: интернет {ti_int}({ti_int_pri} прив), сервис {ti_serv} \n"
                                       f"ЕТ: интернет {et_int}({et_int_pri} прив), "
                                       f"ТВ {et_tv}({et_tv_pri} прив), \n"
@@ -338,7 +338,7 @@ async def echo_mess(message: types.Message):
                         else:
                             print("Нормальные ТО")
                             answer = (f"{t_o} {month_folder} \n\n"
-                                      f"ЭХ: интернет {at_int}, сервис {at_serv} \n"
+                                      f"ЭХ: интернет {at_int}({at_int_pri} прив), сервис {at_serv} \n" 
                                       f"Тиера: интернет {ti_int}({ti_int_pri} прив), сервис {ti_serv} \n"
                                       f"ЕТ: интернет {et_int}({et_int_pri} прив), "
                                       f"ТВ {et_tv}({et_tv_pri} прив), \n"
@@ -855,15 +855,15 @@ async def echo_mess(message: types.Message):
                 if user_id == 785030820 or user_id == 1283252616 or group_id == 1001828053187:
                     if at_int_flag2 == 0:
                         msg_err.append("ЭтХоум Колпино интернет. ")
-                    # if at_int_pri_flag2 == 0:
-                    #     msg_err.append("ЭтХоум Колпино интернет. ")  # привлеченный
+                    if at_int_pri_flag2 == 0:
+                        msg_err.append("ЭтХоум Колпино интернет. ")  # привлеченный
                     if at_serv_flag2 == 0:
                         msg_err.append("ЭтХоум Колпино сервис. ")
 
                 if at_int_flag == 0:
                     msg_err.append("ЭтХоум интернет. ")
-                # if at_int_pri_flag == 0:
-                #     msg_err.append("ЭтХоум интернет. ")  # привлеченный
+                if at_int_pri_flag == 0:
+                    msg_err.append("ЭтХоум интернет. ")  # привлеченный
                 if at_serv_flag == 0:
                     msg_err.append("ЭтХоум сервис. ")
 
