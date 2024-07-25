@@ -1,32 +1,58 @@
 import time
+import re
 
 import requests
 from bs4 import BeautifulSoup
+import lxml
 
 import config
 
-url_login = "http://us.gblnet.net/oper/"
-# url_login = "https://dev-us.gblnet.net/"
+url_login_get = "https://us.gblnet.net/"
+url_login = "https://us.gblnet.net/body/login"
+url = "https://us.gblnet.net/dashboard"
+
 
 HEADERS = {
     "main": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:105.0) Gecko/20100101 Firefox/105.0"
 }
 
 data_users = {
-    "action": "login",
+    "_csrf": '',
+    "return_page": "",
     "username": config.loginUS,
     "password": config.pswUS
 }
 
 session_users = requests.Session()
+# session_users.headers.update(HEADERS)
+
+req = session_users.get(url_login_get)
+# req = requests.get(url_login)
+
+soup = BeautifulSoup(req.content, 'html.parser')
+# print(soup)
+print("###################")
+scripts = soup.find_all('script')
+csrf = None
+for script in scripts:
+    if script.string is not None:
+        # print(script.string)
+        script_lst = script.string.split(" ")
+        # print(script_lst)
+        for num, val in enumerate(script_lst):
+            if val == "_csrf:":
+                csrf = script_lst[num+1]
+print(f"csrf {csrf}")
 
 
 def create_users_sessions():
     while True:
         try:
+            data_users["_csrf"] = csrf[1:-3]
+            print(data_users)
             response_users2 = session_users.post(url_login, data=data_users, headers=HEADERS).text
-            # session_users.post(url_login, data=data_users, headers=HEADERS)
             print("Сессия Юзера создана 2")
+            # print(response_users2)
             return response_users2
         except ConnectionError:
             print("Ошибка создания сессии")
@@ -48,14 +74,18 @@ def get_address(list_service_masters):
     for v in list_repairs:
         print(f"v: {v}")
         service = v[1]
-        link = f"https://us.gblnet.net/oper/?core_section=task&action=show&id={service}"
-        # link = f"https://dev-us.gblnet.net/task/{service}"
+        # link = f"https://us.gblnet.net/oper/?core_section=task&action=show&id={service}"
+        link = f"https://us.gblnet.net/task/{service}"
         print("link 111")
         print(link)
         time.sleep(config.delay)  # Небольшая задержка
         try:
+            HEADERS["_csrf"] = csrf[1:-3]
+            print(f"HEADERS: {HEADERS}")
             print("Пытаемся получить страничку")
-            html = session_users.get(link)
+            print(f"Токен: {csrf}")
+            html = session_users.get(link, headers=HEADERS)
+            print(html)
             if html.status_code == 200:
                 print("Код ответа 200")
                 # soup = BeautifulSoup(html.text, 'lxml')
