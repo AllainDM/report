@@ -183,7 +183,7 @@ async def echo_mess(message: types.Message):
         date_now_no_year = date_ago.strftime("%d.%m")
         month_year = date_ago.strftime("%m.%Y")
         # Функция отправки отчета в телеграм по уже собранным данным
-        if message.text in ['1', '2', '3', '4', '5', '6', '7', '8'] or message.text == "привлеченные":
+        if message.text in ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'] or message.text == "привлеченные":
             if message.text == "2":
                 date_ago = date_ago - timedelta(1)
                 print(f"Новая дата: {date_ago}")
