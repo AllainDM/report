@@ -214,6 +214,14 @@ async def echo_mess(message: types.Message):
                 date_ago = date_ago - timedelta(7)
                 date_now_year = date_ago.strftime("%d.%m.%Y")
                 month_year = date_ago.strftime("%m.%Y")
+            elif message.text == "9":
+                date_ago = date_ago - timedelta(8)
+                date_now_year = date_ago.strftime("%d.%m.%Y")
+                month_year = date_ago.strftime("%m.%Y")
+            elif message.text == "10":
+                date_ago = date_ago - timedelta(9)
+                date_now_year = date_ago.strftime("%d.%m.%Y")
+                month_year = date_ago.strftime("%m.%Y")
             elif message.text.lower() == "привлеченные":  # Для получения папки месяца привлеченных вычтем 8 дней
                 date_ago = date_ago - timedelta(8)
                 date_now_year = date_ago.strftime("%d.%m.%Y")
