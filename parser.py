@@ -90,13 +90,14 @@ def get_address(list_service_masters):
                 print("Код ответа 200")
                 # soup = BeautifulSoup(html.text, 'lxml')
                 soup = BeautifulSoup(html.text, 'html.parser')
-                print(f"soup {soup}")
+                # print(f"soup {soup}")
                 table = soup.find('table', class_="j_table")
                 # print(f"table {table}")
                 if table is None:
                     v.append([" ", " ", " ", " "])
                     v.append("!!! Внимание, возможно не верный номер сервиса 1.")
-                    v.append(" ", " ")
+                    v.append(" ")
+                    v.append(" ")
                     print("!!! Внимание, возможно не верный номер сервиса 1.")
                 else:
                     # Так же сразу найдем тип задания. Главная страница - UserSide
@@ -120,7 +121,8 @@ def get_address(list_service_masters):
                             print("Адрес не найден")
                             v.append([" ", " ", " ", " "])
                             v.append("!!! Внимание, возможно не верный номер сервиса 2.")
-                            v.append(" ", " ")
+                            v.append(" ")
+                            v.append(" ")
                             print("!!! Внимание, возможно не верный номер сервиса 2.")
                         # Еще раз отдельный цикл по ссылкам уже в поиске ид и лс
                         print("Запишем индексы для ИД и ЛС.")
@@ -151,7 +153,8 @@ def get_address(list_service_masters):
                     else:
                         v.append([" ", " ", " ", " "])
                         v.append("!!! Внимание, возможно не верный номер сервиса 3.")
-                        v.append(" ", " ")
+                        v.append(" ")
+                        v.append(" ")
                         print("!!! Внимание, возможно не верный номер сервиса 3.")
                 print("###############################################################################################")
                 print("###############################################################################################")
