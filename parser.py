@@ -132,11 +132,12 @@ def get_address(list_service_masters):
                         user_id = ""
                         user_ls = ""
                         print("Записали индексы для ИД и ЛС.")
+                        # check_ls = []
                         for tab_test in table_a:
                             # print(f"тест ссылок: {tab_test}")
-                            print(f"тест ссылок текст: {tab_test.text}")
+                            # print(f"тест ссылок текст: {tab_test.text}")
                             test_a = tab_test.text.split(" ")
-                            print(f"test_a: {test_a}")
+                            # print(f"test_a: {test_a}")
                             for num, el in enumerate(test_a):
                                 if el == "ID:":
                                     user_id = test_a[num+1]
@@ -145,6 +146,10 @@ def get_address(list_service_masters):
                                 if el == "-":
                                     # ЛС может быть с _ это ЭтХоумовский логин, он не подходит
                                     check_ls = test_a[num+1].split()
+                                    # Авансом привяжем как у ЕТ, позже обработаем не в этом цикле
+                                    id_ls["user_ls"] = test_a[num+1]
+                                    user_ls = test_a[num+1]
+                                    print(f"Найден лс юзера: {id_ls['user_ls']}")
                                     if "_" in check_ls[0]:
                                         print("Это Этхоумовский логин")
                                         # В этом случае надо снова пройтись по таблице в поисках нужного класса
@@ -156,6 +161,7 @@ def get_address(list_service_masters):
                                                 user_ls = l[4:11]
                                     else:
                                         id_ls["user_ls"] = test_a[num+1]
+                                        user_ls = test_a[num+1]
                                     print(f"Найден лс юзера: {id_ls['user_ls']}")
                         print("Таблица проверена.")
 
