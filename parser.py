@@ -1,5 +1,6 @@
 import time
 import re
+from importlib.metadata import files
 
 import requests
 from bs4 import BeautifulSoup
@@ -70,7 +71,7 @@ def get_address(list_service_masters):
     print(list_service_masters)
     print(f'list_service_masters {list_service_masters["list_repairs"]}')
     list_repairs = list_service_masters["list_repairs"]
-    id_ls = {"user_id": "111", "user_ls": "222"}
+    id_ls = {"user_id": "", "user_ls": ""}
     for v in list_repairs:
         print(f"v: {v}")
         service = v[1]
@@ -128,8 +129,8 @@ def get_address(list_service_masters):
                         print("Запишем индексы для ИД и ЛС.")
                         # v.append({"id": " "})  # ID
                         # v.append({"ls": " "})  # ЛС
-                        user_id = " "
-                        user_ls = " "
+                        user_id = ""
+                        user_ls = ""
                         print("Записали индексы для ИД и ЛС.")
                         for tab_test in table_a:
                             # print(f"тест ссылок: {tab_test}")
@@ -142,8 +143,19 @@ def get_address(list_service_masters):
                                     id_ls["user_id"] = test_a[num+1]
                                     print(f"Найден ид юзера: {id_ls['user_id']}")
                                 if el == "-":
-                                    user_ls = test_a[num+1]
-                                    id_ls["user_ls"] = test_a[num+1]
+                                    # ЛС может быть с _ это ЭтХоумовский логин, он не подходит
+                                    check_ls = test_a[num+1].split()
+                                    if "_" in check_ls[0]:
+                                        print("Это Этхоумовский логин")
+                                        # В этом случае надо снова пройтись по таблице в поисках нужного класса
+                                        table_for_ls = table.find(class_="taskCustomerFullInfo")
+                                        table_for_ls = table_for_ls.text.split(" ")
+                                        for l in table_for_ls:
+                                            if l[0:3] == "руб":
+                                                id_ls["user_ls"] = l[4:11]
+                                                user_ls = l[4:11]
+                                    else:
+                                        id_ls["user_ls"] = test_a[num+1]
                                     print(f"Найден лс юзера: {id_ls['user_ls']}")
                         print("Таблица проверена.")
 
