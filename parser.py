@@ -30,20 +30,26 @@ session_users = requests.Session()
 req = session_users.get(url_login_get)
 # req = requests.get(url_login)
 
-soup = BeautifulSoup(req.content, 'html.parser')
-# print(soup)
-print("###################")
-scripts = soup.find_all('script')
 csrf = None
-for script in scripts:
-    if script.string is not None:
-        # print(script.string)
-        script_lst = script.string.split(" ")
-        # print(script_lst)
-        for num, val in enumerate(script_lst):
-            if val == "_csrf:":
-                csrf = script_lst[num+1]
-print(f"csrf {csrf}")
+
+def get_token():
+    global csrf
+    soup = BeautifulSoup(req.content, 'html.parser')
+    # print(soup)
+    print("###################")
+    scripts = soup.find_all('script')
+
+    for script in scripts:
+        if script.string is not None:
+            # print(script.string)
+            script_lst = script.string.split(" ")
+            # print(script_lst)
+            for num, val in enumerate(script_lst):
+                if val == "_csrf:":
+                    csrf = script_lst[num+1]
+    print(f"csrf {csrf}")
+
+get_token()
 
 
 def create_users_sessions():
