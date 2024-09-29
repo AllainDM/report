@@ -49,12 +49,13 @@ def get_token():
                     csrf = script_lst[num+1]
     print(f"csrf {csrf}")
 
-get_token()
 
 
 def create_users_sessions():
+    global csrf
     while True:
         try:
+            get_token()
             data_users["_csrf"] = csrf[1:-3]
             print(data_users)
             response_users2 = session_users.post(url_login, data=data_users, headers=HEADERS).text
@@ -73,6 +74,8 @@ response_users = create_users_sessions()
 
 # TODO необходимо будет сделать одну функция под множество запросов
 def get_address(list_service_masters):
+    global response_users
+    response_users = create_users_sessions()
     print("Что у нас в аргументе")
     print(list_service_masters)
     print(f'list_service_masters {list_service_masters["list_repairs"]}')
