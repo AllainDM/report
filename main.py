@@ -564,51 +564,51 @@ async def echo_mess(message: types.Message):
                         print(new_txt_at_list)
 
                 # Строчка Тиера
-                new_txt_ti = (txt[2].replace("(", " ").
-                              replace(")", " ").
-                              replace("\n", " ").
-                              replace(",", " ").
-                              replace(":", "").
-                              replace(";", "").
-                              replace("\xa0", " ").
-                              replace(".", " "))
-                new_txt_ti_list_with_space = new_txt_ti.split(" ")
-
-                new_txt_ti_list = [i for i in new_txt_ti_list_with_space if i]
-                print(new_txt_ti_list)
-
-                # Сделаем перебор нового списка, где значения будем искать после ключевых слов
-                for num, val in enumerate(new_txt_ti_list):
-                    # print(f"111 {num, val}")
-                    if val.lower() == "интернет":
-                        try:
-                            ti_int = int(new_txt_ti_list.pop(num + 1))  # Следующее значение после "интернет"
-                            if ti_int < 100:  # Проверка на длину значения, защита от номера сервиса
-                                ti_int_flag = 1  # Флаг для проверки правильности отчета
-                        except ValueError:
-                            ti_int = 0
-                        print(new_txt_ti_list)
-                for num, val in enumerate(new_txt_ti_list):
-                    if val[0:4].lower() == "прив":
-                        try:
-                            ti_int_pri = int(new_txt_ti_list.pop(num - 1))  # Перед "прив"
-                            if ti_int_pri < 100:  # Проверка на длину значения, защита от номера сервиса
-                                ti_int_pri_flag = 1  # Флаг для проверки правильности отчета
-                        except ValueError:
-                            ti_int_pri = 0
-                        print(new_txt_ti_list)
-                for num, val in enumerate(new_txt_ti_list):
-                    if val.lower() == "сервис":
-                        try:
-                            ti_serv = int(new_txt_ti_list.pop(num + 1))  # После "сервис"
-                            if ti_serv < 100:  # Проверка на длину значения, защита от номера сервиса
-                                ti_serv_flag = 1  # Флаг для проверки правильности отчета
-                        except ValueError:
-                            ti_serv = 0
-                        print(new_txt_ti_list)
+                # new_txt_ti = (txt[2].replace("(", " ").
+                #               replace(")", " ").
+                #               replace("\n", " ").
+                #               replace(",", " ").
+                #               replace(":", "").
+                #               replace(";", "").
+                #               replace("\xa0", " ").
+                #               replace(".", " "))
+                # new_txt_ti_list_with_space = new_txt_ti.split(" ")
+                #
+                # new_txt_ti_list = [i for i in new_txt_ti_list_with_space if i]
+                # print(new_txt_ti_list)
+                #
+                # # Сделаем перебор нового списка, где значения будем искать после ключевых слов
+                # for num, val in enumerate(new_txt_ti_list):
+                #     # print(f"111 {num, val}")
+                #     if val.lower() == "интернет":
+                #         try:
+                #             ti_int = int(new_txt_ti_list.pop(num + 1))  # Следующее значение после "интернет"
+                #             if ti_int < 100:  # Проверка на длину значения, защита от номера сервиса
+                #                 ti_int_flag = 1  # Флаг для проверки правильности отчета
+                #         except ValueError:
+                #             ti_int = 0
+                #         print(new_txt_ti_list)
+                # for num, val in enumerate(new_txt_ti_list):
+                #     if val[0:4].lower() == "прив":
+                #         try:
+                #             ti_int_pri = int(new_txt_ti_list.pop(num - 1))  # Перед "прив"
+                #             if ti_int_pri < 100:  # Проверка на длину значения, защита от номера сервиса
+                #                 ti_int_pri_flag = 1  # Флаг для проверки правильности отчета
+                #         except ValueError:
+                #             ti_int_pri = 0
+                #         print(new_txt_ti_list)
+                # for num, val in enumerate(new_txt_ti_list):
+                #     if val.lower() == "сервис":
+                #         try:
+                #             ti_serv = int(new_txt_ti_list.pop(num + 1))  # После "сервис"
+                #             if ti_serv < 100:  # Проверка на длину значения, защита от номера сервиса
+                #                 ti_serv_flag = 1  # Флаг для проверки правильности отчета
+                #         except ValueError:
+                #             ti_serv = 0
+                #         print(new_txt_ti_list)
 
                 # Строчка Е-телеком
-                new_txt_et = (txt[3].replace("(", " ").
+                new_txt_et = (txt[2].replace("(", " ").
                               replace(")", " ").
                               replace("\n", " ").
                               replace(",", " ").
