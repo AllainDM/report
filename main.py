@@ -155,7 +155,7 @@ async def echo_mess(message: types.Message):
     if user_id in config.users or group_id in config.groups:
         # Определим ТО по ид юзера в телеграм 1240018773
         # Приоритет группы потом юзеры?
-        if group_id == 4066612012:
+        if group_id == 1002485321385:
             t_o = "ТО Запад"
         elif group_id == 1001534981751:
             t_o = "ТО Север"
