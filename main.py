@@ -36,7 +36,7 @@ async def echo_mess(message: types.Message):
     t_o = ""
     if user_id in config.users:
         # Определим ТО по ид юзера в телеграм
-        if user_id == 976374565 or user_id == 1241715706:
+        if user_id == 976374565 or user_id == 1241715706 or user_id == 1318397909:
             t_o = "ТО Запад"
         elif user_id == 652928171 or user_id == 390285529 or user_id == 536641054:
             t_o = "ТО Север"
@@ -79,7 +79,7 @@ async def echo_mess(message: types.Message):
     month_year = date_ago.strftime("%m.%Y")
     if user_id in config.users:
         # Определим ТО по ид юзера в телеграм
-        if user_id == 976374565 or user_id == 1241715706:
+        if user_id == 976374565 or user_id == 1241715706 or user_id == 1318397909:
             t_o = "ТО Запад"
         elif user_id == 652928171 or user_id == 390285529 or user_id == 536641054:
             t_o = "ТО Север"
@@ -163,7 +163,7 @@ async def echo_mess(message: types.Message):
             t_o = "ТО Юг"
         elif group_id == 1002038540599:
             t_o = "ТО Восток"
-        elif user_id == 976374565 or user_id == 1241715706:
+        elif user_id == 976374565 or user_id == 1241715706 or user_id == 1318397909:
             t_o = "ТО Запад"
         elif user_id == 652928171 or user_id == 390285529 or user_id == 536641054:
             t_o = "ТО Север"
@@ -876,12 +876,12 @@ async def echo_mess(message: types.Message):
                 if at_serv_flag == 0:
                     msg_err.append("ЭтХоум сервис. ")
 
-                if ti_int_flag == 0:
-                    msg_err.append("Тиера интернет. ")
-                if ti_int_pri_flag == 0:
-                    msg_err.append("Тиера интернет. ")  # привлеченный
-                if ti_serv_flag == 0:
-                    msg_err.append("Тиера сервис. ")
+                # if ti_int_flag == 0:
+                #     msg_err.append("Тиера интернет. ")
+                # if ti_int_pri_flag == 0:
+                #     msg_err.append("Тиера интернет. ")  # привлеченный
+                # if ti_serv_flag == 0:
+                #     msg_err.append("Тиера сервис. ")
 
                 if et_int_flag == 0:
                     msg_err.append("ЕТ интернет. ")
@@ -1055,7 +1055,7 @@ async def echo_mess(message: types.Message):
                     answe1 = (f"{t_o} {date_now_no_year}. Мастер {to_save['master']} \n\n"
                               f"ЭХК интернет {at_int2}({at_int_pri2} прив), сервис {at_serv2} \n" 
                               f"ЭХМ: интернет {at_int}({at_int_pri} прив), сервис {at_serv} \n"
-                              f"Тиера: интернет {ti_int}({ti_int_pri} прив), сервис {ti_serv} \n"
+                              # f"Тиера: интернет {ti_int}({ti_int_pri} прив), сервис {ti_serv} \n"
                               f"ЕТ: интернет {et_int}({et_int_pri} прив), "
                               f"ТВ {et_tv}({et_tv_pri} прив), \n"
                               f"домофон {et_dom}({et_dom_pri} прив), "
@@ -1071,7 +1071,7 @@ async def echo_mess(message: types.Message):
                 else:
                     answe1 = (f"{t_o} {date_now_no_year}. Мастер {to_save['master']} \n\n"
                               f"ЭХ: интернет {at_int}({at_int_pri} прив), сервис {at_serv} \n" 
-                              f"Тиера: интернет {ti_int}({ti_int_pri} прив), сервис {ti_serv} \n" 
+                              # f"Тиера: интернет {ti_int}({ti_int_pri} прив), сервис {ti_serv} \n" 
                               f"ЕТ: интернет {et_int}({et_int_pri} прив), "
                               f"ТВ {et_tv}({et_tv_pri} прив), \n"
                               f"домофон {et_dom}({et_dom_pri} прив), "
