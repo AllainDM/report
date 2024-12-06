@@ -981,39 +981,39 @@ async def echo_mess(message: types.Message):
                     # else:
                     #     print(f"{i} не подходит")
 
-                # Запишем номера ремонтов в Тиере
-                # Заменим скобки и перенос строки пробелами и разобьем на список
-                repairs_txt_ti = (txt[2].replace("(", " ").
-                                  replace(")", " ").
-                                  replace("\n", " ").
-                                  replace("#", " ").
-                                  replace("e", " ").        # Английская. Тут мастера могут записать етм
-                                  replace("е", " ").        # Русская
-
-                                  # Для обозначения актовых и без актовых
-                                  replace("a", " ").        # Английская
-                                  replace("а", " ").        # Русская
-                                  replace("б", " ").        # Русская
-                                  replace("t", " ").        # Английская
-                                  replace("т", " ").        # Русская
-
-                                  replace(";", " ").
-                                  replace("-", " ").
-                                  replace(",", " ").
-                                  replace("\xa0", " ").
-                                  replace(".", " "))
-                repairs_txt_ti_list = repairs_txt_ti.split(" ")
-
-                for i in repairs_txt_ti_list:
-                    if len(i) == 7 and i.isnumeric():
-                        print(f"i2 {i}")
-                        list_repairs.append(['Тиера', i, to_save["master"]])
-                    # else:
-                    #     print(f"{i} не подходит")
+                # # Запишем номера ремонтов в Тиере
+                # # Заменим скобки и перенос строки пробелами и разобьем на список
+                # repairs_txt_ti = (txt[2].replace("(", " ").
+                #                   replace(")", " ").
+                #                   replace("\n", " ").
+                #                   replace("#", " ").
+                #                   replace("e", " ").        # Английская. Тут мастера могут записать етм
+                #                   replace("е", " ").        # Русская
+                #
+                #                   # Для обозначения актовых и без актовых
+                #                   replace("a", " ").        # Английская
+                #                   replace("а", " ").        # Русская
+                #                   replace("б", " ").        # Русская
+                #                   replace("t", " ").        # Английская
+                #                   replace("т", " ").        # Русская
+                #
+                #                   replace(";", " ").
+                #                   replace("-", " ").
+                #                   replace(",", " ").
+                #                   replace("\xa0", " ").
+                #                   replace(".", " "))
+                # repairs_txt_ti_list = repairs_txt_ti.split(" ")
+                #
+                # for i in repairs_txt_ti_list:
+                #     if len(i) == 7 and i.isnumeric():
+                #         print(f"i2 {i}")
+                #         list_repairs.append(['Тиера', i, to_save["master"]])
+                #     # else:
+                #     #     print(f"{i} не подходит")
 
                 # Запишем номера ремонтов в ЕТ
                 # Заменим скобки и перенос строки пробелами и разобьем на список
-                repairs_txt_et = (txt[3].replace("(", " ").
+                repairs_txt_et = (txt[2].replace("(", " ").
                                   replace(")", " ").
                                   replace("\n", " ").
                                   replace("#", " ").
