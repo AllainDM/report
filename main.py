@@ -332,7 +332,7 @@ async def echo_mess(message: types.Message):
                             answer = (f"{t_o} {month_folder} \n\n"
                                       f"ЭХК интернет {at_int2}({at_int_pri2} прив), сервис {at_serv2} \n" 
                                       f"ЭХМ: интернет {at_int}({at_int_pri} прив), сервис {at_serv} \n"
-                                      f"Тиера: интернет {ti_int}({ti_int_pri} прив), сервис {ti_serv} \n"
+                                      # f"Тиера: интернет {ti_int}({ti_int_pri} прив), сервис {ti_serv} \n"
                                       f"ЕТ: интернет {et_int}({et_int_pri} прив), "
                                       f"ТВ {et_tv}({et_tv_pri} прив), \n"
                                       f"домофон {et_dom}({et_dom_pri} прив), "
@@ -348,7 +348,7 @@ async def echo_mess(message: types.Message):
                             print("Нормальные ТО")
                             answer = (f"{t_o} {month_folder} \n\n"
                                       f"ЭХ: интернет {at_int}({at_int_pri} прив), сервис {at_serv} \n" 
-                                      f"Тиера: интернет {ti_int}({ti_int_pri} прив), сервис {ti_serv} \n"
+                                      # f"Тиера: интернет {ti_int}({ti_int_pri} прив), сервис {ti_serv} \n"
                                       f"ЕТ: интернет {et_int}({et_int_pri} прив), "
                                       f"ТВ {et_tv}({et_tv_pri} прив), \n"
                                       f"домофон {et_dom}({et_dom_pri} прив), "
@@ -1274,13 +1274,13 @@ def report_priv(files, date, t_o, month_year):
                     else:
                         dict_priv[f"{file[:-5]} ЭХ: "] = data["at_int_pri"]
 
-                if data["ti_int_pri"] > 0:
-                    list_priv.append(f'{file[:-4]} Тиера: {data["ti_int_pri"]}')
-
-                    if f"{file[:-5]} Тиера: " in dict_priv.keys():
-                        dict_priv[f"{file[:-5]} Тиера: "] += data["ti_int_pri"]
-                    else:
-                        dict_priv[f"{file[:-5]} Тиера: "] = data["ti_int_pri"]
+                # if data["ti_int_pri"] > 0:
+                #     list_priv.append(f'{file[:-4]} Тиера: {data["ti_int_pri"]}')
+                #
+                #     if f"{file[:-5]} Тиера: " in dict_priv.keys():
+                #         dict_priv[f"{file[:-5]} Тиера: "] += data["ti_int_pri"]
+                #     else:
+                #         dict_priv[f"{file[:-5]} Тиера: "] = data["ti_int_pri"]
 
                 if data["et_int_pri"] > 0:
                     list_priv.append(f'{file[:-4]} ЕТ интернет: {data["et_int_pri"]}')
