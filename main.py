@@ -71,7 +71,7 @@ async def echo_mess(message: types.Message):
     t_o = ""
     date_now = datetime.now()
     print(f"Текущая дата: {date_now}")
-    date_ago = date_now - timedelta(hours=15)  # - hours  # здесь мы выставляем минус 15 часов
+    date_ago = date_now - timedelta(hours=15)  # - hours здесь мы выставляем минус 15 часов
     print(f"Новая дата: {date_ago}")
     print(date_ago)
     date_now_year = date_ago.strftime("%d.%m.%Y")

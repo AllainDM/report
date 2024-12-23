@@ -168,6 +168,9 @@ def get_address(list_service_masters):
                                             if l[0:3] == "руб":
                                                 id_ls["user_ls"] = l[4:11]
                                                 user_ls = l[4:11]
+                                            if l[0:12] == "лицевой счет":
+                                                id_ls["user_ls"] = l[15:123]
+                                                user_ls = l[15:23]
                                     else:
                                         id_ls["user_ls"] = test_a[num+1]
                                         user_ls = test_a[num+1]
