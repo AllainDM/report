@@ -36,13 +36,13 @@ async def echo_mess(message: types.Message):
     t_o = ""
     if user_id in config.users:
         # Определим ТО по ид юзера в телеграм
-        if user_id == 976374565 or user_id == 1241715706 or user_id == 1318397909:
+        if user_id == 1241715706 or user_id == 1318397909:
             t_o = "ТО Запад"
         elif user_id == 652928171 or user_id == 390285529 or user_id == 536641054:
             t_o = "ТО Север"
         elif user_id == 785030820 or user_id == 1283252616:  # 785030820
             t_o = "ТО Юг"
-        elif user_id == 1095264388 or user_id == 444107729:
+        elif user_id == 1095264388 or user_id == 976374565 or user_id == 444107729:
             t_o = "ТО Восток"
         command = message.get_full_command()[1]  # [1].split('.')
         print(command)
@@ -79,13 +79,13 @@ async def echo_mess(message: types.Message):
     month_year = date_ago.strftime("%m.%Y")
     if user_id in config.users:
         # Определим ТО по ид юзера в телеграм
-        if user_id == 976374565 or user_id == 1241715706 or user_id == 1318397909:
+        if user_id == 1241715706 or user_id == 1318397909:
             t_o = "ТО Запад"
         elif user_id == 652928171 or user_id == 390285529 or user_id == 536641054:
             t_o = "ТО Север"
         elif user_id == 785030820 or user_id == 1283252616:
             t_o = "ТО Юг"
-        elif user_id == 1095264388 or user_id == 444107729:  # 785030820
+        elif user_id == 1095264388 or user_id == 976374565 or user_id == 444107729:  # 785030820
             t_o = "ТО Восток"
 
         # Используем функцию подсчета файлов для вывода посчитанных мастеров
@@ -163,13 +163,13 @@ async def echo_mess(message: types.Message):
             t_o = "ТО Юг"
         elif group_id == 1002038540599:
             t_o = "ТО Восток"
-        elif user_id == 976374565 or user_id == 1241715706 or user_id == 1318397909:
+        elif user_id == 1241715706 or user_id == 1318397909:
             t_o = "ТО Запад"
         elif user_id == 652928171 or user_id == 390285529 or user_id == 536641054:
             t_o = "ТО Север"
         elif user_id == 785030820 or user_id == 1283252616:
             t_o = "ТО Юг"
-        elif user_id == 1095264388 or user_id == 444107729:  # 785030820
+        elif user_id == 1095264388 or user_id == 976374565 or user_id == 444107729:  # 785030820
             t_o = "ТО Восток"
 
         # answer = []
@@ -183,7 +183,8 @@ async def echo_mess(message: types.Message):
         date_now_no_year = date_ago.strftime("%d.%m")
         month_year = date_ago.strftime("%m.%Y")
         # Функция отправки отчета в телеграм по уже собранным данным
-        if message.text in ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'] or message.text == "привлеченные":
+        if (message.text in ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'] or
+                message.text == "привлеченные" or message.text == "неделя"):
             # parser.get_token()  # Обовим токен.
             if message.text == "2":
                 date_ago = date_ago - timedelta(1)
