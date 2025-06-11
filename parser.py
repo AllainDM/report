@@ -208,6 +208,7 @@ def get_address(list_service_masters):
                 print("error")
         except requests.exceptions.TooManyRedirects as e:
             print(f'{link} : {e}')
+    print(f"list_repairs {list_repairs}, id_ls {id_ls}")
     return list_repairs, id_ls
 
 
