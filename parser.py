@@ -156,15 +156,15 @@ def get_address(list_service_masters):
                                     user_id = test_a[num+1]
                                     id_ls["user_ls"] = test_a[num+1]
                                     print(f"Найден лс юзера: {id_ls['user_ls']}")
-                                table_for_ls = table.find(class_="taskCustomerFullInfo")
-                                table_for_ls = table_for_ls.text.split(" ")
-                                for l in table_for_ls:
-                                    if l[0:3] == "руб":
-                                        id_ls["user_ls"] = l[4:11]
-                                        user_ls = l[4:11]
-                                    if l[0:12] == "лицевой счет":
-                                        id_ls["user_ls"] = l[15:123]
-                                        user_ls = l[15:23]
+                                # table_for_ls = table.find(class_="taskCustomerFullInfo")
+                                # table_for_ls = table_for_ls.text.split(" ")
+                                # for l in table_for_ls:
+                                #     if l[0:3] == "руб.договор:":
+                                #         id_ls["user_ls"] = l[4:11]
+                                #         user_ls = l[4:11]
+                                    # if l[0:12] == "лицевой счет":
+                                    #     id_ls["user_ls"] = l[15:123]
+                                    #     user_ls = l[15:23]
                         # houm_ls_table = soup.find(class_="taskCustomerFullInfo")
                         # houm_ls_table_list = houm_ls_table.text.split(" ")
                         # for num, el in enumerate(houm_ls_table_list):
@@ -177,28 +177,32 @@ def get_address(list_service_masters):
                         #             print(f"Найден лс юзера: {id_ls['user_ls']}")
 
 
-                                # if el == "-":
-                                #     # ЛС может быть с _ это ЭтХоумовский логин, он не подходит
-                                #     check_ls = test_a[num+1].split()
-                                #     # Авансом привяжем как у ЕТ, позже обработаем не в этом цикле
-                                #     id_ls["user_ls"] = test_a[num+1]
-                                #     user_ls = test_a[num+1]
-                                #     print(f"Найден лс юзера: {id_ls['user_ls']}")
-                                #     if "_" in check_ls[0]:
-                                #         print("Это Этхоумовский логин")
-                                #         # В этом случае надо снова пройтись по таблице в поисках нужного класса
-                                #         table_for_ls = table.find(class_="taskCustomerFullInfo")
-                                #         table_for_ls = table_for_ls.text.split(" ")
-                                #         for l in table_for_ls:
-                                #             if l[0:3] == "руб":
-                                #                 id_ls["user_ls"] = l[4:11]
-                                #                 user_ls = l[4:11]
-                                #             if l[0:12] == "лицевой счет":
-                                #                 id_ls["user_ls"] = l[15:123]
-                                #                 user_ls = l[15:23]
-                                #     else:
-                                #         id_ls["user_ls"] = test_a[num+1]
-                                #         user_ls = test_a[num+1]
+                                if el == "-":
+                                    # ЛС может быть с _ это ЭтХоумовский логин, он не подходит
+                                    check_ls = test_a[num+1].split()
+                                    # Авансом привяжем как у ЕТ, позже обработаем не в этом цикле
+                                    id_ls["user_ls"] = test_a[num+1]
+                                    user_ls = test_a[num+1]
+                                    print(f"Найден лс юзера: {id_ls['user_ls']}")
+                                    if "_" in check_ls[0]:
+                                        print("Это Этхоумовский логин")
+                                        # В этом случае надо снова пройтись по таблице в поисках нужного класса
+                                        table_for_ls = table.find(class_="taskCustomerFullInfo")
+                                        table_for_ls = table_for_ls.text.split(" ")
+                                        for num2, l in enumerate(table_for_ls):
+                                            if l:
+                                                print(f"llllllll {l}")
+                                                if l == "счет:":
+                                                    user_ls = table_for_ls[num2+1]
+                                            # if l[0:3] == "руб":
+                                            #     id_ls["user_ls"] = l[4:11]
+                                            #     user_ls = l[4:11]
+                                            # if l[0:12] == "лицевой счет":
+                                            #     id_ls["user_ls"] = l[15:123]
+                                            #     user_ls = l[15:23]
+                                    else:
+                                        id_ls["user_ls"] = test_a[num+1]
+                                        user_ls = test_a[num+1]
                                 #     print(f"Найден лс юзера: {id_ls['user_ls']}")
                         print("Таблица проверена.")
 
