@@ -159,10 +159,10 @@ def get_address(list_service_masters):
                         houm_ls_table = soup.find(class_="taskCustomerFullInfo")
                         houm_ls_table_list = houm_ls_table.text.split(" ")
                         for num, el in enumerate(houm_ls_table_list):
-
-                            print(f"el !!!!!!!!! {el}")
-                            if el == "договор:":
+                            if el:
                                 print(f"el !!!!!!!!! {el}")
+                                if el == "договор:":
+                                    print(f"el !!!!!!!!! {el}")
                             # user_id = houm_ls_table_list[num+1]
                             # id_ls["user_ls"] = houm_ls_table_list[num+1]
                             # print(f"Найден лс юзера: {id_ls['user_ls']}")
