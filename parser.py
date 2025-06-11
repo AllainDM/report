@@ -156,16 +156,25 @@ def get_address(list_service_masters):
                                     user_id = test_a[num+1]
                                     id_ls["user_ls"] = test_a[num+1]
                                     print(f"Найден лс юзера: {id_ls['user_ls']}")
-                        houm_ls_table = soup.find(class_="taskCustomerFullInfo")
-                        houm_ls_table_list = houm_ls_table.text.split(" ")
-                        for num, el in enumerate(houm_ls_table_list):
-                            if el:
-                                print(f"el !!!!!!!!! {el}")
-                                if el == "руб.договор:":
-                                    print(f"el !!!!!!!!! {el}")
-                                    user_id = houm_ls_table_list[num+1]
-                                    id_ls["user_ls"] = houm_ls_table_list[num+1]
-                                    print(f"Найден лс юзера: {id_ls['user_ls']}")
+                                table_for_ls = table.find(class_="taskCustomerFullInfo")
+                                table_for_ls = table_for_ls.text.split(" ")
+                                for l in table_for_ls:
+                                    if l[0:3] == "руб":
+                                        id_ls["user_ls"] = l[4:11]
+                                        user_ls = l[4:11]
+                                    if l[0:12] == "лицевой счет":
+                                        id_ls["user_ls"] = l[15:123]
+                                        user_ls = l[15:23]
+                        # houm_ls_table = soup.find(class_="taskCustomerFullInfo")
+                        # houm_ls_table_list = houm_ls_table.text.split(" ")
+                        # for num, el in enumerate(houm_ls_table_list):
+                        #     if el:
+                        #         # print(f"el !!!!!!!!! {el}")
+                        #         if el == "руб.договор:":
+                        #             print(f"el !!!!!!!!! {el}")
+                        #             user_id = houm_ls_table_list[num+1]
+                        #             id_ls["user_ls"] = houm_ls_table_list[num+1]
+                        #             print(f"Найден лс юзера: {id_ls['user_ls']}")
 
 
                                 # if el == "-":
