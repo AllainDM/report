@@ -161,11 +161,11 @@ def get_address(list_service_masters):
                         for num, el in enumerate(houm_ls_table_list):
                             if el:
                                 print(f"el !!!!!!!!! {el}")
-                                if el == "договор:":
+                                if el == "руб.договор:":
                                     print(f"el !!!!!!!!! {el}")
-                            # user_id = houm_ls_table_list[num+1]
-                            # id_ls["user_ls"] = houm_ls_table_list[num+1]
-                            # print(f"Найден лс юзера: {id_ls['user_ls']}")
+                                    user_id = houm_ls_table_list[num+1]
+                                    id_ls["user_ls"] = houm_ls_table_list[num+1]
+                                    print(f"Найден лс юзера: {id_ls['user_ls']}")
 
 
                                 # if el == "-":
