@@ -319,47 +319,54 @@ async def echo_mess(message: types.Message):
 
                         print("База подсчитана")
 
-                        # Для Юга мой ид: 976374565 ( 785030820 )
-                        if user_id == 785030820 or user_id == 1283252616 or group_id == 1001828053187:
-                            print("ТО Юг 222")
-                            print(rep_a)
-                            print(rep_a["at_int2"])
-                            at_int2 = rep_a["at_int2"]
-                            at_int_pri2 = rep_a["at_int_pri2"]
-                            at_serv2 = rep_a["at_serv2"]
-                            print("Колпино прочитано.")
-                            # Убираю привлечнных как по брендам так и из итогового подсчета
-                            # Из итогового, если мастера продолжат указывать
-                            answer = (f"{t_o} {month_folder} \n\n"
-                                      f"ЭХК интернет {at_int2}({at_int_pri2} прив), сервис {at_serv2} \n" 
-                                      f"ЭХМ: интернет {at_int}({at_int_pri} прив), сервис {at_serv} \n"
-                                      # f"Тиера: интернет {ti_int}({ti_int_pri} прив), сервис {ti_serv} \n"
-                                      f"ЕТ: интернет {et_int}({et_int_pri} прив), "
-                                      f"ТВ {et_tv}({et_tv_pri} прив), \n"
-                                      f"домофон {et_dom}({et_dom_pri} прив), "
-                                      f"сервис интернет {et_serv}, "
-                                      f"сервис ТВ {et_serv_tv} \n\n"
-                                      f"Итого: интернет {at_int + at_int2 + ti_int + et_int}"
-                                      f"({(ti_int_pri + et_int_pri)}), "
-                                      f"ТВ {et_tv}({et_tv_pri}), "
-                                      f"домофон {et_dom}({et_dom_pri}), "
-                                      f"сервис {at_serv + at_serv2 + ti_serv + et_serv}, "
-                                      f"сервис ТВ {et_serv_tv}")
-                        else:
-                            print("Нормальные ТО")
-                            answer = (f"{t_o} {month_folder} \n\n"
-                                      f"ЭХ: интернет {at_int}({at_int_pri} прив), сервис {at_serv} \n" 
-                                      # f"Тиера: интернет {ti_int}({ti_int_pri} прив), сервис {ti_serv} \n"
-                                      f"ЕТ: интернет {et_int}({et_int_pri} прив), "
-                                      f"ТВ {et_tv}({et_tv_pri} прив), \n"
-                                      f"домофон {et_dom}({et_dom_pri} прив), "
-                                      f"сервис интернет {et_serv}, "
-                                      f"сервис ТВ {et_serv_tv} \n\n"
-                                      f"Итого: интернет {at_int + ti_int + et_int}({(ti_int_pri + et_int_pri)}), "
-                                      f"ТВ {et_tv}({et_tv_pri}), "
-                                      f"домофон {et_dom}({et_dom_pri}), "
-                                      f"сервис {at_serv + ti_serv + et_serv}, "
-                                      f"сервис ТВ {et_serv_tv}")
+                        # # Для Юга мой ид: 976374565 ( 785030820 )
+                        # if user_id == 785030820 or user_id == 1283252616 or group_id == 1001828053187:
+                        #     print("ТО Юг 222")
+                        #     print(rep_a)
+                        #     print(rep_a["at_int2"])
+                        #     at_int2 = rep_a["at_int2"]
+                        #     at_int_pri2 = rep_a["at_int_pri2"]
+                        #     at_serv2 = rep_a["at_serv2"]
+                        #     print("Колпино прочитано.")
+                        #     # Убираю привлечнных как по брендам так и из итогового подсчета
+                        #     # Из итогового, если мастера продолжат указывать
+                        #     answer = (f"{t_o} {month_folder} \n\n"
+                        #               f"ЭХК интернет {at_int2}({at_int_pri2} прив), сервис {at_serv2} \n"
+                        #               f"ЭХМ: интернет {at_int}({at_int_pri} прив), сервис {at_serv} \n"
+                        #               # f"Тиера: интернет {ti_int}({ti_int_pri} прив), сервис {ti_serv} \n"
+                        #               f"ЕТ: интернет {et_int}({et_int_pri} прив), "
+                        #               f"ТВ {et_tv}({et_tv_pri} прив), \n"
+                        #               f"домофон {et_dom}({et_dom_pri} прив), "
+                        #               f"сервис интернет {et_serv}, "
+                        #               f"сервис ТВ {et_serv_tv} \n\n"
+                        #               f"Итого: интернет {at_int + at_int2 + ti_int + et_int}"
+                        #               f"({(ti_int_pri + et_int_pri)}), "
+                        #               f"ТВ {et_tv}({et_tv_pri}), "
+                        #               f"домофон {et_dom}({et_dom_pri}), "
+                        #               f"сервис {at_serv + at_serv2 + ti_serv + et_serv}, "
+                        #               f"сервис ТВ {et_serv_tv}")
+                        # else:
+                        #     print("Нормальные ТО")
+                        #     answer = (f"{t_o} {month_folder} \n\n"
+                        #               f"ЭХ: интернет {at_int}({at_int_pri} прив), сервис {at_serv} \n"
+                        #               # f"Тиера: интернет {ti_int}({ti_int_pri} прив), сервис {ti_serv} \n"
+                        #               f"ЕТ: интернет {et_int}({et_int_pri} прив), "
+                        #               f"ТВ {et_tv}({et_tv_pri} прив), \n"
+                        #               f"домофон {et_dom}({et_dom_pri} прив), "
+                        #               f"сервис интернет {et_serv}, "
+                        #               f"сервис ТВ {et_serv_tv} \n\n"
+                        #               f"Итого: интернет {at_int + ti_int + et_int}({(ti_int_pri + et_int_pri)}), "
+                        #               f"ТВ {et_tv}({et_tv_pri}), "
+                        #               f"домофон {et_dom}({et_dom_pri}), "
+                        #               f"сервис {at_serv + ti_serv + et_serv}, "
+                        #               f"сервис ТВ {et_serv_tv}")
+
+                        answer = (f"{t_o} {month_folder} \n\n"
+                                  f"Интернет {at_int + ti_int + et_int}({(ti_int_pri + et_int_pri)}), "
+                                  f"ТВ {et_tv}({et_tv_pri}), "
+                                  f"домофон {et_dom}({et_dom_pri}), "
+                                  f"Сервис {at_serv + ti_serv + et_serv}, "
+                                  f"Сервис ТВ {et_serv_tv}")
 
                         print("Ответ готов")
                         await bot.send_message(message.chat.id, answer)
@@ -1054,15 +1061,16 @@ async def echo_mess(message: types.Message):
                 # Для Юга мой ид: 976374565 ( 785030820 )
                 if user_id == 785030820 or user_id == 1283252616 or group_id == 1001828053187 or group_id == 461202541:
                     answe1 = (f"{t_o} {date_now_no_year}. Мастер {to_save['master']} \n\n"
-                              f"ЭХК интернет {at_int2}({at_int_pri2} прив), сервис {at_serv2} \n" 
-                              f"ЭХМ: интернет {at_int}({at_int_pri} прив), сервис {at_serv} \n"
-                              # f"Тиера: интернет {ti_int}({ti_int_pri} прив), сервис {ti_serv} \n"
-                              f"ЕТ: интернет {et_int}({et_int_pri} прив), "
-                              f"ТВ {et_tv}({et_tv_pri} прив), \n"
-                              f"домофон {et_dom}({et_dom_pri} прив), "
-                              f"сервис интернет {et_serv}, "
-                              f"сервис ТВ {et_serv_tv} \n\n"
-                              f"Итого: интернет {at_int + at_int2 + ti_int + et_int}"
+                              # f"ЭХК интернет {at_int2}({at_int_pri2} прив), сервис {at_serv2} \n" 
+                              # f"ЭХМ: интернет {at_int}({at_int_pri} прив), сервис {at_serv} \n"
+                              # # f"Тиера: интернет {ti_int}({ti_int_pri} прив), сервис {ti_serv} \n"
+                              # f"ЕТ: интернет {et_int}({et_int_pri} прив), "
+                              # f"ТВ {et_tv}({et_tv_pri} прив), \n"
+                              # f"домофон {et_dom}({et_dom_pri} прив), "
+                              # f"сервис интернет {et_serv}, "
+                              # f"сервис ТВ {et_serv_tv} \n\n"
+                              # f"Итого: интернет {at_int + at_int2 + ti_int + et_int}"
+                              f"Интернет {at_int + at_int2 + ti_int + et_int}"
                               f"({(at_int_pri + at_int_pri2 + ti_int_pri + et_int_pri)}), "
                               f"ТВ {et_tv}({et_tv_pri}), "
                               f"домофон {et_dom}({et_dom_pri}), "
@@ -1071,14 +1079,15 @@ async def echo_mess(message: types.Message):
 
                 else:
                     answe1 = (f"{t_o} {date_now_no_year}. Мастер {to_save['master']} \n\n"
-                              f"ЭХ: интернет {at_int}({at_int_pri} прив), сервис {at_serv} \n" 
-                              # f"Тиера: интернет {ti_int}({ti_int_pri} прив), сервис {ti_serv} \n" 
-                              f"ЕТ: интернет {et_int}({et_int_pri} прив), "
-                              f"ТВ {et_tv}({et_tv_pri} прив), \n"
-                              f"домофон {et_dom}({et_dom_pri} прив), "
-                              f"сервис интернет {et_serv}, "
-                              f"сервис ТВ {et_serv_tv} \n\n"
-                              f"Итого: интернет {at_int + ti_int + et_int}({(at_int_pri + ti_int_pri + et_int_pri)}), "
+                              # f"ЭХ: интернет {at_int}({at_int_pri} прив), сервис {at_serv} \n" 
+                              # # f"Тиера: интернет {ti_int}({ti_int_pri} прив), сервис {ti_serv} \n" 
+                              # f"ЕТ: интернет {et_int}({et_int_pri} прив), "
+                              # f"ТВ {et_tv}({et_tv_pri} прив), \n"
+                              # f"домофон {et_dom}({et_dom_pri} прив), "
+                              # f"сервис интернет {et_serv}, "
+                              # f"сервис ТВ {et_serv_tv} \n\n"
+                              # f"Итого: интернет {at_int + ti_int + et_int}({(at_int_pri + ti_int_pri + et_int_pri)}), "
+                              f"Интернет {at_int + ti_int + et_int}({(at_int_pri + ti_int_pri + et_int_pri)}), "
                               f"ТВ {et_tv}({et_tv_pri}), "
                               f"домофон {et_dom}({et_dom_pri}), "
                               f"сервис {at_serv + ti_serv + et_serv}, "
